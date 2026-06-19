@@ -1,0 +1,1269 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Logo Zeichner</title>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #0d0d1a;
+      color: #fff;
+      height: 100vh;
+      width: 100vw;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .screen {
+      display: none;
+      position: absolute;
+      inset: 0;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      padding: 20px;
+    }
+    .screen.active { display: flex; }
+
+    /* ─── START SCREEN ─────────────────────────────────────── */
+    #screen-start {
+      background: radial-gradient(ellipse at 30% 30%, #1a1a4e 0%, #0d0d1a 70%);
+    }
+
+    .start-logo-row {
+      display: flex;
+      gap: 18px;
+      margin-bottom: 32px;
+      opacity: 0.18;
+    }
+    .start-logo-row canvas { border-radius: 8px; }
+
+    .game-title {
+      font-size: clamp(2rem, 6vw, 3.8rem);
+      font-weight: 900;
+      letter-spacing: 5px;
+      text-transform: uppercase;
+      background: linear-gradient(135deg, #ff4f6d, #ffa500);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-align: center;
+    }
+    .game-subtitle {
+      font-size: 1rem;
+      color: #888;
+      margin: 8px 0 44px;
+      letter-spacing: 2px;
+      text-align: center;
+    }
+
+    .menu-buttons { display: flex; flex-direction: column; gap: 14px; width: 100%; max-width: 300px; }
+
+    .menu-btn {
+      padding: 16px 28px;
+      border: none;
+      border-radius: 10px;
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: 3px;
+      cursor: pointer;
+      text-transform: uppercase;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .menu-btn:hover { transform: translateY(-3px); }
+    .btn-start {
+      background: linear-gradient(135deg, #ff4f6d, #c4003d);
+      color: #fff;
+    }
+    .btn-start:hover { box-shadow: 0 12px 30px rgba(255,79,109,0.4); }
+    .btn-options {
+      background: rgba(255,255,255,0.08);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.15);
+    }
+    .btn-options:hover { background: rgba(255,255,255,0.15); }
+    .btn-exit {
+      background: transparent;
+      color: #666;
+      border: 1px solid #333;
+    }
+    .btn-exit:hover { color: #aaa; border-color: #666; }
+
+    /* ─── OPTIONS SCREEN ────────────────────────────────────── */
+    #screen-options { background: #0d0d1a; }
+    .options-title {
+      font-size: 2rem;
+      font-weight: 800;
+      letter-spacing: 4px;
+      margin-bottom: 40px;
+      color: #ff4f6d;
+    }
+    .option-group {
+      width: 100%;
+      max-width: 380px;
+      margin-bottom: 28px;
+    }
+    .option-label {
+      font-size: 0.85rem;
+      color: #888;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    .option-toggle-row { display: flex; gap: 10px; }
+    .opt-btn {
+      flex: 1;
+      padding: 12px;
+      border: 1px solid #333;
+      border-radius: 8px;
+      background: transparent;
+      color: #666;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .opt-btn.selected {
+      background: #ff4f6d;
+      border-color: #ff4f6d;
+      color: #fff;
+      font-weight: 700;
+    }
+
+    /* ─── MEMORIZE SCREEN ───────────────────────────────────── */
+    #screen-memorize { background: #0d0d1a; }
+    .level-badge {
+      font-size: 0.8rem;
+      color: #888;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+    .memorize-heading {
+      font-size: 1.1rem;
+      color: #ffa500;
+      margin-bottom: 20px;
+      letter-spacing: 1px;
+    }
+
+    .memorize-card {
+      position: relative;
+      background: #fff;
+      border-radius: 16px;
+      padding: 20px;
+      box-shadow: 0 0 60px rgba(255,79,109,0.2);
+    }
+    #ref-canvas { display: block; border-radius: 8px; }
+
+    .countdown-wrap {
+      margin-top: 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+    .countdown-svg { width: 80px; height: 80px; }
+    .countdown-circle-bg {
+      fill: none;
+      stroke: #222;
+      stroke-width: 6;
+    }
+    .countdown-circle-fg {
+      fill: none;
+      stroke: #ff4f6d;
+      stroke-width: 6;
+      stroke-linecap: round;
+      transform: rotate(-90deg);
+      transform-origin: 50% 50%;
+      transition: stroke-dashoffset 1s linear;
+    }
+    .countdown-number {
+      font-size: 1.6rem;
+      font-weight: 900;
+      fill: #fff;
+      dominant-baseline: middle;
+      text-anchor: middle;
+    }
+    .brand-name {
+      font-size: 1.4rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+    }
+    .brand-category {
+      font-size: 0.85rem;
+      color: #888;
+      letter-spacing: 2px;
+    }
+
+    /* ─── DRAW SCREEN ───────────────────────────────────────── */
+    #screen-draw {
+      background: #0d0d1a;
+      justify-content: flex-start;
+      padding: 16px;
+    }
+    .draw-header {
+      width: 100%;
+      max-width: 560px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+    .draw-level-badge { font-size: 0.8rem; color: #888; letter-spacing: 2px; text-transform: uppercase; }
+    .draw-heading { font-size: 1rem; color: #ffa500; letter-spacing: 1px; }
+
+    #draw-canvas {
+      background: #fff;
+      border-radius: 12px;
+      cursor: crosshair;
+      display: block;
+      box-shadow: 0 0 40px rgba(0,0,0,0.6);
+      touch-action: none;
+    }
+
+    .draw-controls {
+      width: 100%;
+      max-width: 560px;
+      margin-top: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .palette-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .color-swatch {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      border: 3px solid transparent;
+      cursor: pointer;
+      transition: transform 0.15s, border-color 0.15s;
+    }
+    .color-swatch:hover { transform: scale(1.15); }
+    .color-swatch.active { border-color: #fff; transform: scale(1.2); }
+    .eraser-btn {
+      padding: 4px 14px;
+      background: transparent;
+      border: 1px solid #555;
+      border-radius: 20px;
+      color: #aaa;
+      font-size: 0.8rem;
+      cursor: pointer;
+    }
+    .eraser-btn.active { border-color: #fff; color: #fff; }
+
+    .tools-row {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+    .size-btn {
+      background: rgba(255,255,255,0.07);
+      border: 1px solid #333;
+      border-radius: 6px;
+      color: #fff;
+      padding: 6px 14px;
+      cursor: pointer;
+      font-size: 0.8rem;
+      transition: all 0.15s;
+    }
+    .size-btn.active { background: #ff4f6d; border-color: #ff4f6d; }
+    .tool-btn {
+      padding: 7px 16px;
+      background: rgba(255,255,255,0.07);
+      border: 1px solid #333;
+      border-radius: 6px;
+      color: #aaa;
+      cursor: pointer;
+      font-size: 0.85rem;
+      transition: all 0.15s;
+    }
+    .tool-btn:hover { color: #fff; border-color: #666; }
+
+    .btn-submit {
+      padding: 14px;
+      background: linear-gradient(135deg, #ff4f6d, #c4003d);
+      border: none;
+      border-radius: 10px;
+      color: #fff;
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      text-transform: uppercase;
+    }
+    .btn-submit:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(255,79,109,0.4); }
+
+    /* ─── RESULT SCREEN ─────────────────────────────────────── */
+    #screen-result { background: #0d0d1a; }
+    .result-title { font-size: 1.8rem; font-weight: 900; margin-bottom: 24px; letter-spacing: 3px; }
+    .result-canvases {
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+      margin-bottom: 24px;
+    }
+    .result-canvas-wrap { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+    .result-canvas-label { font-size: 0.75rem; color: #888; letter-spacing: 2px; text-transform: uppercase; }
+    .result-canvas-el {
+      border-radius: 10px;
+      background: #fff;
+    }
+
+    .score-display {
+      font-size: 3.5rem;
+      font-weight: 900;
+      margin-bottom: 8px;
+    }
+    .score-message { font-size: 1rem; color: #aaa; margin-bottom: 20px; letter-spacing: 1px; }
+
+    .stars-row { display: flex; gap: 6px; margin-bottom: 28px; }
+    .star { font-size: 1.8rem; opacity: 0.3; transition: opacity 0.4s; }
+    .star.lit { opacity: 1; }
+
+    .btn-next {
+      padding: 14px 40px;
+      background: linear-gradient(135deg, #2ecc71, #1a8a4a);
+      border: none;
+      border-radius: 10px;
+      color: #fff;
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      text-transform: uppercase;
+    }
+    .btn-next:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(46,204,113,0.4); }
+
+    /* ─── GAME OVER SCREEN ──────────────────────────────────── */
+    #screen-gameover { background: radial-gradient(ellipse at center, #1a1a4e 0%, #0d0d1a 70%); }
+    .gameover-title {
+      font-size: clamp(1.8rem, 5vw, 3rem);
+      font-weight: 900;
+      letter-spacing: 4px;
+      text-align: center;
+      margin-bottom: 8px;
+      background: linear-gradient(135deg, #ffd700, #ffa500);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .gameover-sub { color: #888; margin-bottom: 32px; letter-spacing: 1px; }
+    .final-score-big {
+      font-size: 5rem;
+      font-weight: 900;
+      background: linear-gradient(135deg, #ff4f6d, #ffa500);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 4px;
+    }
+    .final-score-label { color: #888; font-size: 0.9rem; letter-spacing: 2px; margin-bottom: 28px; }
+    .level-scores-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      max-width: 400px;
+      width: 100%;
+      margin-bottom: 36px;
+    }
+    .level-score-card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 8px;
+      padding: 10px 6px;
+      text-align: center;
+    }
+    .lsc-name { font-size: 0.7rem; color: #888; margin-bottom: 4px; }
+    .lsc-score { font-size: 1.1rem; font-weight: 700; }
+    .gameover-btns { display: flex; gap: 14px; }
+    .btn-replay {
+      padding: 14px 32px;
+      background: linear-gradient(135deg, #ff4f6d, #c4003d);
+      border: none;
+      border-radius: 10px;
+      color: #fff;
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      transition: transform 0.2s;
+    }
+    .btn-replay:hover { transform: translateY(-2px); }
+    .btn-menu {
+      padding: 14px 32px;
+      background: transparent;
+      border: 1px solid #444;
+      border-radius: 10px;
+      color: #aaa;
+      font-size: 0.95rem;
+      cursor: pointer;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      transition: all 0.2s;
+    }
+    .btn-menu:hover { border-color: #888; color: #fff; }
+
+    /* ─── UTILITY ───────────────────────────────────────────── */
+    .divider { width: 60px; height: 2px; background: #333; margin: 4px auto 0; }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- START SCREEN -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div id="screen-start" class="screen active">
+  <div class="start-logo-row" id="start-logo-row"></div>
+  <div class="game-title">Logo Zeichner</div>
+  <div class="game-subtitle">Erkenne &amp; zeichne bekannte Logos</div>
+  <div class="menu-buttons">
+    <button class="menu-btn btn-start" onclick="startGame()">▶&ensp;Spielen</button>
+    <button class="menu-btn btn-options" onclick="showScreen('screen-options')">⚙&ensp;Optionen</button>
+    <button class="menu-btn btn-exit" onclick="exitGame()">✕&ensp;Beenden</button>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- OPTIONS SCREEN -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div id="screen-options" class="screen">
+  <div class="options-title">Optionen</div>
+
+  <div class="option-group">
+    <div class="option-label">Countdown Zeit</div>
+    <div class="option-toggle-row" id="time-opts">
+      <button class="opt-btn" data-val="5"  onclick="setOption('time',5)">5 Sek</button>
+      <button class="opt-btn selected" data-val="10" onclick="setOption('time',10)">10 Sek</button>
+      <button class="opt-btn" data-val="15" onclick="setOption('time',15)">15 Sek</button>
+    </div>
+  </div>
+
+  <div class="option-group">
+    <div class="option-label">Vorlage im Hintergrund</div>
+    <div class="option-toggle-row" id="ghost-opts">
+      <button class="opt-btn" data-val="1" onclick="setOption('ghost',1)">An</button>
+      <button class="opt-btn selected" data-val="0" onclick="setOption('ghost',0)">Aus</button>
+    </div>
+  </div>
+
+  <div class="option-group">
+    <div class="option-label">Pinselstärke Voreinstellung</div>
+    <div class="option-toggle-row" id="brush-opts">
+      <button class="opt-btn" data-val="4" onclick="setOption('brush',4)">Dünn</button>
+      <button class="opt-btn selected" data-val="10" onclick="setOption('brush',10)">Mittel</button>
+      <button class="opt-btn" data-val="20" onclick="setOption('brush',20)">Dick</button>
+    </div>
+  </div>
+
+  <div style="height:20px"></div>
+  <button class="menu-btn btn-start" onclick="showScreen('screen-start')">← Zurück</button>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- MEMORIZE SCREEN -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div id="screen-memorize" class="screen">
+  <div class="level-badge" id="mem-level-badge">Level 1 / 8</div>
+  <div class="memorize-heading">Präge dir das Logo ein!</div>
+  <div class="memorize-card">
+    <canvas id="ref-canvas" width="280" height="280"></canvas>
+  </div>
+  <div class="countdown-wrap">
+    <svg class="countdown-svg" viewBox="0 0 80 80">
+      <circle class="countdown-circle-bg" cx="40" cy="40" r="34"/>
+      <circle class="countdown-circle-fg" id="countdown-fg" cx="40" cy="40" r="34"
+              stroke-dasharray="213.6" stroke-dashoffset="0"/>
+      <text class="countdown-number" id="countdown-num" x="40" y="40">10</text>
+    </svg>
+    <div class="brand-name" id="mem-brand-name">Nike</div>
+    <div class="brand-category" id="mem-brand-cat">Sport</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- DRAW SCREEN -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div id="screen-draw" class="screen">
+  <div class="draw-header">
+    <div class="draw-level-badge" id="draw-level-badge">Level 1 / 8</div>
+    <div class="draw-heading">Zeichne das Logo!</div>
+  </div>
+
+  <canvas id="draw-canvas"></canvas>
+
+  <div class="draw-controls">
+    <!-- Color Palette -->
+    <div class="palette-row" id="palette-row">
+      <!-- populated by JS -->
+    </div>
+
+    <!-- Size + Tools -->
+    <div class="tools-row">
+      <span style="font-size:0.75rem;color:#888;margin-right:4px">Größe:</span>
+      <button class="size-btn" onclick="setSize(4)"  id="sz-s">S</button>
+      <button class="size-btn active" onclick="setSize(10)" id="sz-m">M</button>
+      <button class="size-btn" onclick="setSize(20)" id="sz-l">L</button>
+      <div style="flex:1"></div>
+      <button class="tool-btn" onclick="undoDraw()" title="Rückgängig">↩ Undo</button>
+      <button class="tool-btn" onclick="clearCanvas()" title="Alles löschen">🗑 Clear</button>
+    </div>
+
+    <!-- Submit -->
+    <button class="btn-submit" onclick="submitDrawing()">Fertig! →</button>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- RESULT SCREEN -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div id="screen-result" class="screen">
+  <div class="result-title" id="result-title">Ergebnis</div>
+
+  <div class="result-canvases">
+    <div class="result-canvas-wrap">
+      <div class="result-canvas-label">Original</div>
+      <canvas id="result-ref-canvas" class="result-canvas-el" width="160" height="160"></canvas>
+    </div>
+    <div style="display:flex;flex-direction:column;justify-content:center;align-items:center;gap:4px">
+      <div style="font-size:2rem">vs</div>
+    </div>
+    <div class="result-canvas-wrap">
+      <div class="result-canvas-label">Dein Bild</div>
+      <canvas id="result-user-canvas" class="result-canvas-el" width="160" height="160"></canvas>
+    </div>
+  </div>
+
+  <div class="score-display" id="score-display">0%</div>
+  <div class="score-message" id="score-message">...</div>
+  <div class="stars-row" id="stars-row">
+    <div class="star" id="s1">★</div>
+    <div class="star" id="s2">★</div>
+    <div class="star" id="s3">★</div>
+    <div class="star" id="s4">★</div>
+    <div class="star" id="s5">★</div>
+  </div>
+
+  <button class="btn-next" id="btn-next" onclick="nextLevel()">Weiter →</button>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- GAME OVER SCREEN -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div id="screen-gameover" class="screen">
+  <div class="gameover-title">🎉 Geschafft!</div>
+  <div class="gameover-sub">Alle Logos gezeichnet</div>
+  <div class="final-score-big" id="final-score-big">0</div>
+  <div class="final-score-label">PUNKTE GESAMT</div>
+  <div class="level-scores-grid" id="level-scores-grid"></div>
+  <div class="gameover-btns">
+    <button class="btn-replay" onclick="startGame()">▶ Nochmal</button>
+    <button class="btn-menu" onclick="showScreen('screen-start')">☰ Menü</button>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<script>
+// ─── GAME STATE ──────────────────────────────────────────
+const state = {
+  level: 0,
+  scores: [],
+  opts: { time: 10, ghost: 0, brush: 10 },
+  countdownId: null,
+};
+
+// ─── LEVELS ──────────────────────────────────────────────
+const LEVELS = [
+  { name: 'Nike', cat: 'Sport', draw: drawNike, bg: '#fff' },
+  { name: "McDonald's", cat: 'Fast Food', draw: drawMcDonalds, bg: '#fff' },
+  { name: 'Mercedes-Benz', cat: 'Automobil', draw: drawMercedes, bg: '#fff' },
+  { name: 'Adidas', cat: 'Sport', draw: drawAdidas, bg: '#fff' },
+  { name: 'YouTube', cat: 'Streaming', draw: drawYouTube, bg: '#fff' },
+  { name: 'Target', cat: 'Einzelhandel', draw: drawTarget, bg: '#fff' },
+  { name: 'BMW', cat: 'Automobil', draw: drawBMW, bg: '#fff' },
+  { name: 'Twitter', cat: 'Social Media', draw: drawTwitter, bg: '#fff' },
+];
+
+// ─── DRAWING FUNCTIONS ────────────────────────────────────
+
+function drawNike(ctx, w, h) {
+  ctx.save();
+  ctx.fillStyle = '#111';
+  ctx.beginPath();
+  ctx.moveTo(w * 0.06, h * 0.56);
+  ctx.bezierCurveTo(w * 0.18, h * 0.30, w * 0.52, h * 0.18, w * 0.94, h * 0.36);
+  ctx.bezierCurveTo(w * 0.80, h * 0.44, w * 0.55, h * 0.50, w * 0.38, h * 0.56);
+  ctx.bezierCurveTo(w * 0.22, h * 0.62, w * 0.12, h * 0.66, w * 0.06, h * 0.56);
+  ctx.closePath();
+  ctx.fill();
+  ctx.restore();
+}
+
+function drawMcDonalds(ctx, w, h) {
+  ctx.save();
+  ctx.strokeStyle = '#FFC72C';
+  ctx.lineWidth = w * 0.13;
+  ctx.lineCap = 'round';
+
+  // Left arch
+  ctx.beginPath();
+  ctx.moveTo(w * 0.18, h * 0.78);
+  ctx.bezierCurveTo(w * 0.18, h * 0.18, w * 0.44, h * 0.18, w * 0.44, h * 0.54);
+  ctx.stroke();
+
+  // Right arch
+  ctx.beginPath();
+  ctx.moveTo(w * 0.56, h * 0.54);
+  ctx.bezierCurveTo(w * 0.56, h * 0.18, w * 0.82, h * 0.18, w * 0.82, h * 0.78);
+  ctx.stroke();
+  ctx.restore();
+}
+
+function drawMercedes(ctx, w, h) {
+  ctx.save();
+  const cx = w / 2, cy = h / 2, R = Math.min(w, h) * 0.42;
+  ctx.strokeStyle = '#111';
+  ctx.lineWidth = w * 0.035;
+
+  // Outer circle
+  ctx.beginPath();
+  ctx.arc(cx, cy, R, 0, Math.PI * 2);
+  ctx.stroke();
+
+  // Three-point star
+  ctx.fillStyle = '#111';
+  for (let i = 0; i < 3; i++) {
+    const a = (i / 3) * Math.PI * 2 - Math.PI / 2;
+    const tipX = cx + R * 0.97 * Math.cos(a);
+    const tipY = cy + R * 0.97 * Math.sin(a);
+    const l = a - 0.22, r2 = a + 0.22;
+    const sr = R * 0.15;
+    ctx.beginPath();
+    ctx.moveTo(cx + sr * Math.cos(l), cy + sr * Math.sin(l));
+    ctx.lineTo(tipX, tipY);
+    ctx.lineTo(cx + sr * Math.cos(r2), cy + sr * Math.sin(r2));
+    ctx.lineTo(cx, cy);
+    ctx.closePath();
+    ctx.fill();
+  }
+  // Center dot
+  ctx.beginPath();
+  ctx.arc(cx, cy, R * 0.12, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.restore();
+}
+
+function drawAdidas(ctx, w, h) {
+  ctx.save();
+  const stripeW = w * 0.15;
+  const gap = w * 0.08;
+  const cols = ['#111', '#111', '#111'];
+
+  // Three diagonal stripes
+  for (let i = 0; i < 3; i++) {
+    const x0 = w * 0.14 + i * (stripeW + gap);
+    ctx.fillStyle = cols[i];
+    ctx.beginPath();
+    // bottom-left to top-right diagonal stripe
+    ctx.moveTo(x0, h * 0.82);
+    ctx.lineTo(x0 + stripeW, h * 0.82);
+    ctx.lineTo(x0 + stripeW + h * 0.56, h * 0.82 - h * 0.56);
+    ctx.lineTo(x0 + h * 0.56, h * 0.82 - h * 0.56);
+    ctx.closePath();
+    ctx.fill();
+  }
+
+  // Adidas trefoil-style bottom bar
+  ctx.fillStyle = '#111';
+  ctx.fillRect(w * 0.12, h * 0.82, w * 0.76, h * 0.06);
+  ctx.restore();
+}
+
+function drawYouTube(ctx, w, h) {
+  ctx.save();
+  const rx = w * 0.12;
+  const rw = w * 0.78, rh = h * 0.52;
+  const rx0 = (w - rw) / 2, ry0 = (h - rh) / 2;
+
+  // Red rounded rect
+  ctx.fillStyle = '#FF0000';
+  roundRect(ctx, rx0, ry0, rw, rh, rx);
+  ctx.fill();
+
+  // White play triangle
+  ctx.fillStyle = '#fff';
+  const tx = w * 0.38, ty = h * 0.32, tw = w * 0.30, th = h * 0.36;
+  ctx.beginPath();
+  ctx.moveTo(tx, ty);
+  ctx.lineTo(tx, ty + th);
+  ctx.lineTo(tx + tw, ty + th / 2);
+  ctx.closePath();
+  ctx.fill();
+  ctx.restore();
+}
+
+function roundRect(ctx, x, y, w, h, r) {
+  ctx.beginPath();
+  ctx.moveTo(x + r, y);
+  ctx.lineTo(x + w - r, y);
+  ctx.quadraticCurveTo(x + w, y, x + w, y + r);
+  ctx.lineTo(x + w, y + h - r);
+  ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+  ctx.lineTo(x + r, y + h);
+  ctx.quadraticCurveTo(x, y + h, x, y + h - r);
+  ctx.lineTo(x, y + r);
+  ctx.quadraticCurveTo(x, y, x + r, y);
+  ctx.closePath();
+}
+
+function drawTarget(ctx, w, h) {
+  ctx.save();
+  const cx = w / 2, cy = h / 2;
+  const radii = [w * 0.44, w * 0.30, w * 0.15];
+  const colors = ['#CC0000', '#fff', '#CC0000'];
+  for (let i = 0; i < radii.length; i++) {
+    ctx.fillStyle = colors[i];
+    ctx.beginPath();
+    ctx.arc(cx, cy, radii[i], 0, Math.PI * 2);
+    ctx.fill();
+  }
+  ctx.restore();
+}
+
+function drawBMW(ctx, w, h) {
+  ctx.save();
+  const cx = w / 2, cy = h / 2, R = Math.min(w, h) * 0.42;
+  const r2 = R * 0.72;
+
+  // Outer ring
+  ctx.strokeStyle = '#333';
+  ctx.lineWidth = w * 0.06;
+  ctx.beginPath();
+  ctx.arc(cx, cy, R, 0, Math.PI * 2);
+  ctx.stroke();
+
+  // Blue quadrant (top-right, bottom-left)
+  ctx.save();
+  ctx.beginPath();
+  ctx.arc(cx, cy, r2, -Math.PI / 2, 0);
+  ctx.lineTo(cx, cy);
+  ctx.closePath();
+  ctx.fillStyle = '#1C6BC2';
+  ctx.fill();
+
+  ctx.beginPath();
+  ctx.arc(cx, cy, r2, Math.PI / 2, Math.PI);
+  ctx.lineTo(cx, cy);
+  ctx.closePath();
+  ctx.fillStyle = '#1C6BC2';
+  ctx.fill();
+  ctx.restore();
+
+  // White quadrant
+  ctx.save();
+  ctx.beginPath();
+  ctx.arc(cx, cy, r2, 0, Math.PI / 2);
+  ctx.lineTo(cx, cy);
+  ctx.closePath();
+  ctx.fillStyle = '#fff';
+  ctx.fill();
+
+  ctx.beginPath();
+  ctx.arc(cx, cy, r2, Math.PI, Math.PI * 3 / 2);
+  ctx.lineTo(cx, cy);
+  ctx.closePath();
+  ctx.fillStyle = '#fff';
+  ctx.fill();
+  ctx.restore();
+
+  // Inner dividers
+  ctx.strokeStyle = '#333';
+  ctx.lineWidth = w * 0.025;
+  ctx.beginPath();
+  ctx.moveTo(cx, cy - r2); ctx.lineTo(cx, cy + r2);
+  ctx.stroke();
+  ctx.beginPath();
+  ctx.moveTo(cx - r2, cy); ctx.lineTo(cx + r2, cy);
+  ctx.stroke();
+
+  // Outer ring again on top
+  ctx.strokeStyle = '#111';
+  ctx.lineWidth = w * 0.055;
+  ctx.beginPath();
+  ctx.arc(cx, cy, R, 0, Math.PI * 2);
+  ctx.stroke();
+
+  // Inner ring
+  ctx.beginPath();
+  ctx.arc(cx, cy, r2, 0, Math.PI * 2);
+  ctx.stroke();
+  ctx.restore();
+}
+
+function drawTwitter(ctx, w, h) {
+  ctx.save();
+  ctx.fillStyle = '#1DA1F2';
+  ctx.beginPath();
+  // Body of bird (roughly egg-shaped, tilted)
+  ctx.moveTo(w * 0.50, h * 0.28);
+  ctx.bezierCurveTo(w * 0.62, h * 0.18, w * 0.82, h * 0.22, w * 0.88, h * 0.35);
+  ctx.bezierCurveTo(w * 0.94, h * 0.48, w * 0.88, h * 0.58, w * 0.80, h * 0.62);
+  ctx.bezierCurveTo(w * 0.88, h * 0.62, w * 0.92, h * 0.68, w * 0.88, h * 0.74); // tail area
+  ctx.bezierCurveTo(w * 0.80, h * 0.72, w * 0.72, h * 0.76, w * 0.62, h * 0.78);
+  ctx.bezierCurveTo(w * 0.50, h * 0.80, w * 0.34, h * 0.76, w * 0.24, h * 0.66);
+  ctx.bezierCurveTo(w * 0.18, h * 0.58, w * 0.20, h * 0.50, w * 0.28, h * 0.46);
+  // Wing sweep
+  ctx.bezierCurveTo(w * 0.20, h * 0.46, w * 0.14, h * 0.42, w * 0.12, h * 0.35);
+  ctx.bezierCurveTo(w * 0.20, h * 0.36, w * 0.26, h * 0.32, w * 0.30, h * 0.28);
+  ctx.bezierCurveTo(w * 0.34, h * 0.22, w * 0.44, h * 0.22, w * 0.50, h * 0.28);
+  ctx.closePath();
+  ctx.fill();
+
+  // Beak
+  ctx.fillStyle = '#1DA1F2';
+  ctx.beginPath();
+  ctx.moveTo(w * 0.50, h * 0.28);
+  ctx.bezierCurveTo(w * 0.44, h * 0.28, w * 0.36, h * 0.32, w * 0.30, h * 0.38);
+  ctx.bezierCurveTo(w * 0.36, h * 0.34, w * 0.44, h * 0.30, w * 0.50, h * 0.34);
+  ctx.closePath();
+  ctx.fill();
+
+  // Eye
+  ctx.fillStyle = '#fff';
+  ctx.beginPath();
+  ctx.arc(w * 0.66, h * 0.34, w * 0.04, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.restore();
+}
+
+// ─── CANVAS PALETTE ──────────────────────────────────────
+const PALETTE = [
+  '#111111', '#ffffff', '#e63946', '#457b9d',
+  '#2d6a4f', '#f4a261', '#9b5de5', '#f9c74f',
+];
+
+let drawCtx, drawCanvas;
+let isDrawing = false, lastX = 0, lastY = 0;
+let currentColor = '#111111';
+let currentSize = 10;
+let isEraser = false;
+let history = [];
+const MAX_HIST = 25;
+
+function buildPalette() {
+  const row = document.getElementById('palette-row');
+  row.innerHTML = '';
+  PALETTE.forEach((c, i) => {
+    const sw = document.createElement('div');
+    sw.className = 'color-swatch' + (i === 0 ? ' active' : '');
+    sw.style.background = c;
+    if (c === '#ffffff') sw.style.border = '3px solid #444';
+    sw.onclick = () => selectColor(c, sw);
+    row.appendChild(sw);
+  });
+  // Eraser
+  const er = document.createElement('button');
+  er.className = 'eraser-btn';
+  er.id = 'eraser-btn';
+  er.textContent = '✏ Radierer';
+  er.onclick = toggleEraser;
+  row.appendChild(er);
+}
+
+function selectColor(c, el) {
+  currentColor = c;
+  isEraser = false;
+  document.querySelectorAll('.color-swatch').forEach(s => s.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('eraser-btn').classList.remove('active');
+}
+
+function toggleEraser() {
+  isEraser = !isEraser;
+  document.getElementById('eraser-btn').classList.toggle('active', isEraser);
+  document.querySelectorAll('.color-swatch').forEach(s => s.classList.remove('active'));
+}
+
+function setSize(s) {
+  currentSize = s;
+  document.querySelectorAll('.size-btn').forEach(b => b.classList.remove('active'));
+  const map = { 4: 'sz-s', 10: 'sz-m', 20: 'sz-l' };
+  if (map[s]) document.getElementById(map[s]).classList.add('active');
+}
+
+function setupDrawCanvas() {
+  drawCanvas = document.getElementById('draw-canvas');
+  const maxW = Math.min(window.innerWidth - 40, 520);
+  const maxH = Math.min(window.innerHeight - 260, 420);
+  const size = Math.min(maxW, maxH);
+  drawCanvas.width = size;
+  drawCanvas.height = size;
+  drawCtx = drawCanvas.getContext('2d');
+  clearCanvas(false);
+
+  // Ghost/watermark
+  if (state.opts.ghost) {
+    const lvl = LEVELS[state.level];
+    drawCtx.save();
+    drawCtx.globalAlpha = 0.10;
+    lvl.draw(drawCtx, size, size);
+    drawCtx.restore();
+  }
+
+  saveHistory();
+
+  // Mouse
+  drawCanvas.addEventListener('mousedown', e => {
+    isDrawing = true;
+    const pos = getPos(e);
+    lastX = pos.x; lastY = pos.y;
+    // Dot on click
+    doStroke(lastX, lastY, lastX, lastY);
+  });
+  drawCanvas.addEventListener('mousemove', e => {
+    if (!isDrawing) return;
+    const pos = getPos(e);
+    doStroke(lastX, lastY, pos.x, pos.y);
+    lastX = pos.x; lastY = pos.y;
+  });
+  drawCanvas.addEventListener('mouseup', () => { isDrawing = false; saveHistory(); });
+  drawCanvas.addEventListener('mouseleave', () => { isDrawing = false; saveHistory(); });
+
+  // Touch
+  drawCanvas.addEventListener('touchstart', e => {
+    e.preventDefault();
+    isDrawing = true;
+    const pos = getPos(e.touches[0]);
+    lastX = pos.x; lastY = pos.y;
+    doStroke(lastX, lastY, lastX, lastY);
+  }, { passive: false });
+  drawCanvas.addEventListener('touchmove', e => {
+    e.preventDefault();
+    if (!isDrawing) return;
+    const pos = getPos(e.touches[0]);
+    doStroke(lastX, lastY, pos.x, pos.y);
+    lastX = pos.x; lastY = pos.y;
+  }, { passive: false });
+  drawCanvas.addEventListener('touchend', () => { isDrawing = false; saveHistory(); });
+}
+
+function getPos(e) {
+  const rect = drawCanvas.getBoundingClientRect();
+  const scaleX = drawCanvas.width / rect.width;
+  const scaleY = drawCanvas.height / rect.height;
+  return {
+    x: ((e.clientX || e.pageX) - rect.left) * scaleX,
+    y: ((e.clientY || e.pageY) - rect.top) * scaleY,
+  };
+}
+
+function doStroke(x0, y0, x1, y1) {
+  drawCtx.lineWidth = isEraser ? currentSize * 2.5 : currentSize;
+  drawCtx.lineCap = 'round';
+  drawCtx.lineJoin = 'round';
+  drawCtx.strokeStyle = isEraser ? '#ffffff' : currentColor;
+  drawCtx.beginPath();
+  drawCtx.moveTo(x0, y0);
+  drawCtx.lineTo(x1, y1);
+  drawCtx.stroke();
+}
+
+function saveHistory() {
+  if (history.length >= MAX_HIST) history.shift();
+  history.push(drawCtx.getImageData(0, 0, drawCanvas.width, drawCanvas.height));
+}
+
+function undoDraw() {
+  if (history.length <= 1) return;
+  history.pop();
+  drawCtx.putImageData(history[history.length - 1], 0, 0);
+}
+
+function clearCanvas(saveHist = true) {
+  if (!drawCtx) return;
+  drawCtx.fillStyle = '#ffffff';
+  drawCtx.fillRect(0, 0, drawCanvas.width, drawCanvas.height);
+  if (saveHist) { history = []; saveHistory(); }
+}
+
+// ─── SCORE CALCULATION ────────────────────────────────────
+
+function calculateScore() {
+  const SIZE = 200;
+
+  // Reference
+  const refC = document.createElement('canvas');
+  refC.width = SIZE; refC.height = SIZE;
+  const refX = refC.getContext('2d');
+  refX.fillStyle = '#fff';
+  refX.fillRect(0, 0, SIZE, SIZE);
+  LEVELS[state.level].draw(refX, SIZE, SIZE);
+
+  // User scaled
+  const usrC = document.createElement('canvas');
+  usrC.width = SIZE; usrC.height = SIZE;
+  const usrX = usrC.getContext('2d');
+  usrX.fillStyle = '#fff';
+  usrX.fillRect(0, 0, SIZE, SIZE);
+  usrX.drawImage(drawCanvas, 0, 0, SIZE, SIZE);
+
+  const refD = refX.getImageData(0, 0, SIZE, SIZE).data;
+  const usrD = usrX.getImageData(0, 0, SIZE, SIZE).data;
+
+  let refPx = 0, usrPx = 0, inter = 0;
+
+  function isNotWhite(d, i) {
+    return !(d[i] > 230 && d[i + 1] > 230 && d[i + 2] > 230);
+  }
+
+  for (let i = 0; i < refD.length; i += 4) {
+    const rNW = isNotWhite(refD, i);
+    const uNW = isNotWhite(usrD, i);
+    if (rNW) refPx++;
+    if (uNW) usrPx++;
+    if (rNW && uNW) inter++;
+  }
+
+  // F1-style score
+  const prec = usrPx > 0 ? inter / usrPx : 0;
+  const rec  = refPx > 0 ? inter / refPx : 0;
+  const f1   = (prec + rec) > 0 ? 2 * prec * rec / (prec + rec) : 0;
+
+  // Scale: 0..1 → 0..100, boost for encouragement
+  const raw = Math.round(f1 * 100);
+  return Math.min(100, Math.round(raw * 1.6)); // generous boost
+}
+
+// ─── SCREEN MANAGEMENT ───────────────────────────────────
+
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+// ─── OPTIONS ─────────────────────────────────────────────
+
+function setOption(key, val) {
+  state.opts[key] = val;
+  const group = document.getElementById(key + '-opts');
+  if (group) {
+    group.querySelectorAll('.opt-btn').forEach(b => {
+      b.classList.toggle('selected', +b.dataset.val === val);
+    });
+  }
+  // Apply brush default
+  if (key === 'brush') {
+    currentSize = val;
+    const sizeMap = { 4: 'sz-s', 10: 'sz-m', 20: 'sz-l' };
+    document.querySelectorAll('.size-btn').forEach(b => b.classList.remove('active'));
+    if (sizeMap[val]) document.getElementById(sizeMap[val]).classList.add('active');
+  }
+}
+
+// ─── GAME FLOW ────────────────────────────────────────────
+
+function startGame() {
+  state.level = 0;
+  state.scores = [];
+  showMemorize();
+}
+
+function showMemorize() {
+  const lvl = LEVELS[state.level];
+  document.getElementById('mem-level-badge').textContent =
+    `Level ${state.level + 1} / ${LEVELS.length}`;
+  document.getElementById('mem-brand-name').textContent = lvl.name;
+  document.getElementById('mem-brand-cat').textContent = lvl.cat;
+
+  // Draw reference
+  const rc = document.getElementById('ref-canvas');
+  const ctx = rc.getContext('2d');
+  ctx.fillStyle = '#fff';
+  ctx.fillRect(0, 0, rc.width, rc.height);
+  lvl.draw(ctx, rc.width, rc.height);
+
+  showScreen('screen-memorize');
+  startCountdown(state.opts.time);
+}
+
+function startCountdown(secs) {
+  let t = secs;
+  const circle = document.getElementById('countdown-fg');
+  const num = document.getElementById('countdown-num');
+  const circumference = 2 * Math.PI * 34;
+
+  function tick() {
+    const pct = t / secs;
+    circle.style.strokeDashoffset = circumference * (1 - pct);
+    num.textContent = t;
+    if (t <= 3) circle.style.stroke = '#ffa500';
+    else circle.style.stroke = '#ff4f6d';
+
+    if (t <= 0) {
+      clearInterval(state.countdownId);
+      circle.style.stroke = '#ff4f6d';
+      showDrawScreen();
+      return;
+    }
+    t--;
+  }
+
+  tick();
+  state.countdownId = setInterval(tick, 1000);
+}
+
+function showDrawScreen() {
+  document.getElementById('draw-level-badge').textContent =
+    `Level ${state.level + 1} / ${LEVELS.length}`;
+  currentSize = state.opts.brush;
+  currentColor = '#111111';
+  isEraser = false;
+  history = [];
+  // Reset palette UI
+  document.querySelectorAll('.color-swatch').forEach((s, i) => {
+    s.classList.toggle('active', i === 0);
+  });
+  document.querySelectorAll('.size-btn').forEach(b => b.classList.remove('active'));
+  const sMap = { 4: 'sz-s', 10: 'sz-m', 20: 'sz-l' };
+  if (sMap[currentSize]) document.getElementById(sMap[currentSize]).classList.add('active');
+
+  showScreen('screen-draw');
+  setupDrawCanvas();
+}
+
+function submitDrawing() {
+  const score = calculateScore();
+  state.scores.push(score);
+  showResult(score);
+}
+
+function showResult(score) {
+  // Title with level name
+  document.getElementById('result-title').textContent =
+    `Level ${state.level + 1}: ${LEVELS[state.level].name}`;
+
+  // Reference mini canvas
+  const rr = document.getElementById('result-ref-canvas');
+  const rrx = rr.getContext('2d');
+  rrx.fillStyle = '#fff';
+  rrx.fillRect(0, 0, rr.width, rr.height);
+  LEVELS[state.level].draw(rrx, rr.width, rr.height);
+
+  // User mini canvas
+  const ru = document.getElementById('result-user-canvas');
+  const rux = ru.getContext('2d');
+  rux.fillStyle = '#fff';
+  rux.fillRect(0, 0, ru.width, ru.height);
+  rux.drawImage(drawCanvas, 0, 0, ru.width, ru.height);
+
+  // Score display
+  const sd = document.getElementById('score-display');
+  sd.textContent = score + '%';
+  if (score >= 70) sd.style.color = '#2ecc71';
+  else if (score >= 40) sd.style.color = '#ffa500';
+  else sd.style.color = '#ff4f6d';
+
+  // Message
+  const msgs = [
+    [80, 'Perfekt! Du bist ein Logo-Künstler! 🎨'],
+    [60, 'Sehr gut! Richtig erkennbar! 👍'],
+    [40, 'Gut gemacht! Man erkennt es! 😊'],
+    [20, 'Guter Versuch! Weiter üben! 💪'],
+    [0,  'Nicht aufgeben – nächstes Mal klappt es! 🚀'],
+  ];
+  document.getElementById('score-message').textContent =
+    msgs.find(([t]) => score >= t)[1];
+
+  // Stars
+  const stars = Math.ceil(score / 20);
+  for (let i = 1; i <= 5; i++) {
+    const el = document.getElementById('s' + i);
+    el.classList.toggle('lit', i <= stars);
+  }
+  // Animate stars
+  for (let i = 1; i <= 5; i++) {
+    setTimeout(() => {
+      document.getElementById('s' + i).style.color = i <= stars ? '#ffd700' : '#444';
+    }, i * 120);
+  }
+
+  const isLast = state.level >= LEVELS.length - 1;
+  document.getElementById('btn-next').textContent = isLast ? 'Abschluss →' : 'Weiter →';
+
+  showScreen('screen-result');
+}
+
+function nextLevel() {
+  if (state.level >= LEVELS.length - 1) {
+    showGameOver();
+    return;
+  }
+  state.level++;
+  showMemorize();
+}
+
+function showGameOver() {
+  const total = state.scores.reduce((a, b) => a + b, 0);
+  const avg = Math.round(total / state.scores.length);
+
+  document.getElementById('final-score-big').textContent = total + ' Pkt';
+
+  const grid = document.getElementById('level-scores-grid');
+  grid.innerHTML = '';
+  state.scores.forEach((s, i) => {
+    const card = document.createElement('div');
+    card.className = 'level-score-card';
+    const col = s >= 70 ? '#2ecc71' : s >= 40 ? '#ffa500' : '#ff4f6d';
+    card.innerHTML = `<div class="lsc-name">${LEVELS[i].name}</div>
+                      <div class="lsc-score" style="color:${col}">${s}%</div>`;
+    grid.appendChild(card);
+  });
+
+  showScreen('screen-gameover');
+}
+
+function exitGame() {
+  if (!window.close()) {
+    document.body.innerHTML = `
+      <div style="display:flex;flex-direction:column;justify-content:center;align-items:center;
+                  height:100vh;background:#0d0d1a;color:#fff;text-align:center;gap:20px">
+        <div style="font-size:3rem">👋</div>
+        <div style="font-size:2rem;font-weight:700">Auf Wiedersehen!</div>
+        <div style="color:#888">Du kannst den Tab nun schließen.</div>
+      </div>`;
+  }
+}
+
+// ─── INIT ─────────────────────────────────────────────────
+
+function initStartLogos() {
+  const row = document.getElementById('start-logo-row');
+  const picks = [0, 1, 2, 3];
+  picks.forEach(idx => {
+    const c = document.createElement('canvas');
+    c.width = 60; c.height = 60;
+    const ctx = c.getContext('2d');
+    ctx.fillStyle = '#fff';
+    ctx.fillRect(0, 0, 60, 60);
+    LEVELS[idx].draw(ctx, 60, 60);
+    row.appendChild(c);
+  });
+}
+
+buildPalette();
+initStartLogos();
+</script>
+</body>
+</html>
