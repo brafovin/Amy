@@ -28,122 +28,116 @@
     }
     .screen.active { display: flex; }
 
+    /* LOADING */
+    #screen-loading { background: #0d0d1a; gap: 20px; }
+    .loading-logo { font-size: 2rem; font-weight: 900; letter-spacing: 4px; background: linear-gradient(135deg,#ff4f6d,#ffa500); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+    .loading-bar-wrap { width: 280px; height: 6px; background: #222; border-radius: 3px; overflow: hidden; }
+    .loading-bar { height: 100%; width: 0%; background: linear-gradient(90deg,#ff4f6d,#ffa500); border-radius: 3px; transition: width 0.3s; }
+    .loading-text { font-size: 0.8rem; color: #666; letter-spacing: 1px; }
+
     /* START */
     #screen-start { background: radial-gradient(ellipse at 30% 30%, #1a1a4e 0%, #0d0d1a 70%); }
-    .start-logo-row { display: flex; gap: 14px; margin-bottom: 28px; opacity: 0.2; flex-wrap: wrap; justify-content: center; }
-    .start-logo-row canvas { border-radius: 8px; }
-    .game-title {
-      font-size: clamp(2rem, 6vw, 3.6rem);
-      font-weight: 900;
-      letter-spacing: 5px;
-      text-transform: uppercase;
-      background: linear-gradient(135deg, #ff4f6d, #ffa500);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      text-align: center;
-    }
+    .start-logo-row { display: flex; gap: 12px; margin-bottom: 28px; flex-wrap: wrap; justify-content: center; }
+    .start-logo-row canvas { border-radius: 10px; }
+    .game-title { font-size: clamp(2rem,6vw,3.6rem); font-weight: 900; letter-spacing: 5px; text-transform: uppercase; background: linear-gradient(135deg,#ff4f6d,#ffa500); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; text-align:center; }
     .game-subtitle { font-size: 0.95rem; color: #888; margin: 8px 0 40px; letter-spacing: 2px; text-align: center; }
     .menu-buttons { display: flex; flex-direction: column; gap: 12px; width: 100%; max-width: 280px; }
-    .menu-btn {
-      padding: 15px 24px;
-      border: none;
-      border-radius: 10px;
-      font-size: 1rem;
-      font-weight: 700;
-      letter-spacing: 3px;
-      cursor: pointer;
-      text-transform: uppercase;
-      transition: transform 0.2s, box-shadow 0.2s;
-    }
+    .menu-btn { padding: 15px 24px; border: none; border-radius: 10px; font-size: 1rem; font-weight: 700; letter-spacing: 3px; cursor: pointer; text-transform: uppercase; transition: transform .2s, box-shadow .2s; }
     .menu-btn:hover { transform: translateY(-3px); }
-    .btn-start { background: linear-gradient(135deg, #ff4f6d, #c4003d); color: #fff; }
-    .btn-start:hover { box-shadow: 0 12px 30px rgba(255,79,109,0.4); }
-    .btn-options { background: rgba(255,255,255,0.08); color: #fff; border: 1px solid rgba(255,255,255,0.15); }
-    .btn-options:hover { background: rgba(255,255,255,0.15); }
-    .btn-exit { background: transparent; color: #666; border: 1px solid #333; }
-    .btn-exit:hover { color: #aaa; border-color: #666; }
+    .btn-start { background: linear-gradient(135deg,#ff4f6d,#c4003d); color:#fff; }
+    .btn-start:hover { box-shadow: 0 12px 30px rgba(255,79,109,.4); }
+    .btn-options { background: rgba(255,255,255,.08); color:#fff; border: 1px solid rgba(255,255,255,.15); }
+    .btn-options:hover { background: rgba(255,255,255,.15); }
+    .btn-exit { background: transparent; color:#666; border: 1px solid #333; }
+    .btn-exit:hover { color:#aaa; border-color:#666; }
 
     /* OPTIONS */
     #screen-options { background: #0d0d1a; }
     .options-title { font-size: 2rem; font-weight: 800; letter-spacing: 4px; margin-bottom: 36px; color: #ff4f6d; }
     .option-group { width: 100%; max-width: 380px; margin-bottom: 24px; }
-    .option-label { font-size: 0.8rem; color: #888; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 10px; }
+    .option-label { font-size: .8rem; color: #888; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 10px; }
     .option-toggle-row { display: flex; gap: 10px; }
-    .opt-btn { flex: 1; padding: 12px; border: 1px solid #333; border-radius: 8px; background: transparent; color: #666; font-size: 0.85rem; cursor: pointer; transition: all 0.2s; }
-    .opt-btn.selected { background: #ff4f6d; border-color: #ff4f6d; color: #fff; font-weight: 700; }
+    .opt-btn { flex:1; padding:12px; border:1px solid #333; border-radius:8px; background:transparent; color:#666; font-size:.85rem; cursor:pointer; transition:all .2s; }
+    .opt-btn.selected { background:#ff4f6d; border-color:#ff4f6d; color:#fff; font-weight:700; }
 
     /* MEMORIZE */
     #screen-memorize { background: #0d0d1a; }
-    .level-badge { font-size: 0.75rem; color: #888; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 14px; }
-    .memorize-heading { font-size: 1rem; color: #ffa500; margin-bottom: 18px; letter-spacing: 1px; }
-    .memorize-card { position: relative; background: #fff; border-radius: 16px; padding: 16px; box-shadow: 0 0 60px rgba(255,79,109,0.2); }
-    #ref-canvas { display: block; border-radius: 6px; }
-    .countdown-wrap { margin-top: 20px; display: flex; flex-direction: column; align-items: center; gap: 8px; }
-    .countdown-svg { width: 72px; height: 72px; }
-    .countdown-circle-bg { fill: none; stroke: #222; stroke-width: 6; }
-    .countdown-circle-fg { fill: none; stroke: #ff4f6d; stroke-width: 6; stroke-linecap: round; transform: rotate(-90deg); transform-origin: 50% 50%; transition: stroke-dashoffset 1s linear; }
-    .countdown-number { font-size: 1.5rem; font-weight: 900; fill: #fff; dominant-baseline: middle; text-anchor: middle; }
-    .brand-name { font-size: 1.3rem; font-weight: 700; letter-spacing: 2px; }
-    .brand-category { font-size: 0.8rem; color: #888; letter-spacing: 2px; }
+    .level-badge { font-size:.75rem; color:#888; letter-spacing:2px; text-transform:uppercase; margin-bottom:14px; }
+    .memorize-heading { font-size:1rem; color:#ffa500; margin-bottom:18px; letter-spacing:1px; }
+    .memorize-card { background:#fff; border-radius:16px; padding:16px; box-shadow:0 0 60px rgba(255,79,109,.2); }
+    #ref-canvas { display:block; border-radius:6px; }
+    .countdown-wrap { margin-top:20px; display:flex; flex-direction:column; align-items:center; gap:8px; }
+    .countdown-svg { width:72px; height:72px; }
+    .countdown-circle-bg { fill:none; stroke:#222; stroke-width:6; }
+    .countdown-circle-fg { fill:none; stroke:#ff4f6d; stroke-width:6; stroke-linecap:round; transform:rotate(-90deg); transform-origin:50% 50%; transition:stroke-dashoffset 1s linear; }
+    .countdown-number { font-size:1.5rem; font-weight:900; fill:#fff; dominant-baseline:middle; text-anchor:middle; }
+    .brand-name { font-size:1.3rem; font-weight:700; letter-spacing:2px; }
+    .brand-category { font-size:.8rem; color:#888; letter-spacing:2px; }
 
     /* DRAW */
-    #screen-draw { background: #0d0d1a; justify-content: flex-start; padding: 14px; }
-    .draw-header { width: 100%; max-width: 560px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
-    .draw-level-badge { font-size: 0.75rem; color: #888; letter-spacing: 2px; text-transform: uppercase; }
-    .draw-heading { font-size: 0.95rem; color: #ffa500; letter-spacing: 1px; }
-    #draw-canvas { background: #fff; border-radius: 12px; cursor: crosshair; display: block; box-shadow: 0 0 40px rgba(0,0,0,0.6); touch-action: none; }
-    .draw-controls { width: 100%; max-width: 560px; margin-top: 12px; display: flex; flex-direction: column; gap: 9px; }
-    .palette-row { display: flex; gap: 7px; flex-wrap: wrap; align-items: center; }
-    .color-swatch { width: 28px; height: 28px; border-radius: 50%; border: 3px solid transparent; cursor: pointer; transition: transform 0.15s, border-color 0.15s; }
-    .color-swatch:hover { transform: scale(1.15); }
-    .color-swatch.active { border-color: #fff; transform: scale(1.2); }
-    .eraser-btn { padding: 4px 12px; background: transparent; border: 1px solid #555; border-radius: 20px; color: #aaa; font-size: 0.75rem; cursor: pointer; white-space: nowrap; }
-    .eraser-btn.active { border-color: #fff; color: #fff; }
-    .tools-row { display: flex; gap: 7px; align-items: center; }
-    .size-btn { background: rgba(255,255,255,0.07); border: 1px solid #333; border-radius: 6px; color: #fff; padding: 5px 12px; cursor: pointer; font-size: 0.78rem; transition: all 0.15s; }
-    .size-btn.active { background: #ff4f6d; border-color: #ff4f6d; }
-    .tool-btn { padding: 6px 14px; background: rgba(255,255,255,0.07); border: 1px solid #333; border-radius: 6px; color: #aaa; cursor: pointer; font-size: 0.8rem; transition: all 0.15s; }
-    .tool-btn:hover { color: #fff; border-color: #666; }
-    .btn-submit { padding: 13px; background: linear-gradient(135deg, #ff4f6d, #c4003d); border: none; border-radius: 10px; color: #fff; font-size: 0.95rem; font-weight: 700; letter-spacing: 2px; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; text-transform: uppercase; }
-    .btn-submit:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(255,79,109,0.4); }
+    #screen-draw { background:#0d0d1a; justify-content:flex-start; padding:14px; }
+    .draw-header { width:100%; max-width:560px; display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; }
+    .draw-level-badge { font-size:.75rem; color:#888; letter-spacing:2px; text-transform:uppercase; }
+    .draw-heading { font-size:.95rem; color:#ffa500; letter-spacing:1px; }
+    #draw-canvas { background:#fff; border-radius:12px; cursor:crosshair; display:block; box-shadow:0 0 40px rgba(0,0,0,.6); touch-action:none; }
+    .draw-controls { width:100%; max-width:560px; margin-top:12px; display:flex; flex-direction:column; gap:9px; }
+    .palette-row { display:flex; gap:7px; flex-wrap:wrap; align-items:center; }
+    .color-swatch { width:28px; height:28px; border-radius:50%; border:3px solid transparent; cursor:pointer; transition:transform .15s, border-color .15s; }
+    .color-swatch:hover { transform:scale(1.15); }
+    .color-swatch.active { border-color:#fff; transform:scale(1.2); }
+    .eraser-btn { padding:4px 12px; background:transparent; border:1px solid #555; border-radius:20px; color:#aaa; font-size:.75rem; cursor:pointer; white-space:nowrap; }
+    .eraser-btn.active { border-color:#fff; color:#fff; }
+    .tools-row { display:flex; gap:7px; align-items:center; }
+    .size-btn { background:rgba(255,255,255,.07); border:1px solid #333; border-radius:6px; color:#fff; padding:5px 12px; cursor:pointer; font-size:.78rem; transition:all .15s; }
+    .size-btn.active { background:#ff4f6d; border-color:#ff4f6d; }
+    .tool-btn { padding:6px 14px; background:rgba(255,255,255,.07); border:1px solid #333; border-radius:6px; color:#aaa; cursor:pointer; font-size:.8rem; transition:all .15s; }
+    .tool-btn:hover { color:#fff; border-color:#666; }
+    .btn-submit { padding:13px; background:linear-gradient(135deg,#ff4f6d,#c4003d); border:none; border-radius:10px; color:#fff; font-size:.95rem; font-weight:700; letter-spacing:2px; cursor:pointer; transition:transform .2s, box-shadow .2s; text-transform:uppercase; }
+    .btn-submit:hover { transform:translateY(-2px); box-shadow:0 8px 20px rgba(255,79,109,.4); }
 
     /* RESULT */
-    #screen-result { background: #0d0d1a; }
-    .result-title { font-size: 1.6rem; font-weight: 900; margin-bottom: 20px; letter-spacing: 3px; }
-    .result-canvases { display: flex; gap: 16px; align-items: flex-start; margin-bottom: 20px; }
-    .result-canvas-wrap { display: flex; flex-direction: column; align-items: center; gap: 6px; }
-    .result-canvas-label { font-size: 0.7rem; color: #888; letter-spacing: 2px; text-transform: uppercase; }
-    .result-canvas-el { border-radius: 10px; background: #fff; }
-    .score-display { font-size: 3.2rem; font-weight: 900; margin-bottom: 6px; }
-    .score-message { font-size: 0.95rem; color: #aaa; margin-bottom: 18px; letter-spacing: 1px; text-align: center; max-width: 340px; }
-    .stars-row { display: flex; gap: 5px; margin-bottom: 24px; }
-    .star { font-size: 1.6rem; opacity: 0.2; transition: opacity 0.4s, color 0.4s; }
-    .star.lit { opacity: 1; color: #ffd700; }
-    .btn-next { padding: 13px 38px; background: linear-gradient(135deg, #2ecc71, #1a8a4a); border: none; border-radius: 10px; color: #fff; font-size: 0.95rem; font-weight: 700; letter-spacing: 2px; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; text-transform: uppercase; }
-    .btn-next:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(46,204,113,0.4); }
+    #screen-result { background:#0d0d1a; }
+    .result-title { font-size:1.6rem; font-weight:900; margin-bottom:20px; letter-spacing:3px; }
+    .result-canvases { display:flex; gap:16px; align-items:flex-start; margin-bottom:20px; }
+    .result-canvas-wrap { display:flex; flex-direction:column; align-items:center; gap:6px; }
+    .result-canvas-label { font-size:.7rem; color:#888; letter-spacing:2px; text-transform:uppercase; }
+    .result-canvas-el { border-radius:10px; background:#fff; }
+    .score-display { font-size:3.2rem; font-weight:900; margin-bottom:6px; }
+    .score-message { font-size:.95rem; color:#aaa; margin-bottom:18px; letter-spacing:1px; text-align:center; max-width:340px; }
+    .stars-row { display:flex; gap:5px; margin-bottom:24px; }
+    .star { font-size:1.6rem; opacity:.2; transition:opacity .4s, color .4s; }
+    .star.lit { opacity:1; color:#ffd700; }
+    .btn-next { padding:13px 38px; background:linear-gradient(135deg,#2ecc71,#1a8a4a); border:none; border-radius:10px; color:#fff; font-size:.95rem; font-weight:700; letter-spacing:2px; cursor:pointer; transition:transform .2s, box-shadow .2s; text-transform:uppercase; }
+    .btn-next:hover { transform:translateY(-2px); box-shadow:0 8px 20px rgba(46,204,113,.4); }
 
     /* GAME OVER */
-    #screen-gameover { background: radial-gradient(ellipse at center, #1a1a4e 0%, #0d0d1a 70%); }
-    .gameover-title { font-size: clamp(1.8rem, 5vw, 2.8rem); font-weight: 900; letter-spacing: 4px; text-align: center; margin-bottom: 6px; background: linear-gradient(135deg, #ffd700, #ffa500); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-    .gameover-sub { color: #888; margin-bottom: 28px; letter-spacing: 1px; }
-    .final-score-big { font-size: 4.5rem; font-weight: 900; background: linear-gradient(135deg, #ff4f6d, #ffa500); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 4px; }
-    .final-score-label { color: #888; font-size: 0.85rem; letter-spacing: 2px; margin-bottom: 24px; }
-    .level-scores-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; max-width: 420px; width: 100%; margin-bottom: 30px; }
-    .level-score-card { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; padding: 8px 4px; text-align: center; }
-    .lsc-name { font-size: 0.62rem; color: #888; margin-bottom: 3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; padding: 0 2px; }
-    .lsc-score { font-size: 1rem; font-weight: 700; }
-    .gameover-btns { display: flex; gap: 12px; }
-    .btn-replay { padding: 13px 28px; background: linear-gradient(135deg, #ff4f6d, #c4003d); border: none; border-radius: 10px; color: #fff; font-size: 0.9rem; font-weight: 700; cursor: pointer; letter-spacing: 2px; text-transform: uppercase; transition: transform 0.2s; }
-    .btn-replay:hover { transform: translateY(-2px); }
-    .btn-menu { padding: 13px 28px; background: transparent; border: 1px solid #444; border-radius: 10px; color: #aaa; font-size: 0.9rem; cursor: pointer; letter-spacing: 2px; text-transform: uppercase; transition: all 0.2s; }
-    .btn-menu:hover { border-color: #888; color: #fff; }
+    #screen-gameover { background:radial-gradient(ellipse at center, #1a1a4e 0%, #0d0d1a 70%); }
+    .gameover-title { font-size:clamp(1.8rem,5vw,2.8rem); font-weight:900; letter-spacing:4px; text-align:center; margin-bottom:6px; background:linear-gradient(135deg,#ffd700,#ffa500); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+    .gameover-sub { color:#888; margin-bottom:28px; letter-spacing:1px; }
+    .final-score-big { font-size:4.5rem; font-weight:900; background:linear-gradient(135deg,#ff4f6d,#ffa500); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; margin-bottom:4px; }
+    .final-score-label { color:#888; font-size:.85rem; letter-spacing:2px; margin-bottom:24px; }
+    .level-scores-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:8px; max-width:420px; width:100%; margin-bottom:30px; }
+    .level-score-card { background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.08); border-radius:8px; padding:8px 4px; text-align:center; }
+    .lsc-name { font-size:.6rem; color:#888; margin-bottom:3px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; padding:0 2px; }
+    .lsc-score { font-size:1rem; font-weight:700; }
+    .gameover-btns { display:flex; gap:12px; }
+    .btn-replay { padding:13px 28px; background:linear-gradient(135deg,#ff4f6d,#c4003d); border:none; border-radius:10px; color:#fff; font-size:.9rem; font-weight:700; cursor:pointer; letter-spacing:2px; text-transform:uppercase; transition:transform .2s; }
+    .btn-replay:hover { transform:translateY(-2px); }
+    .btn-menu { padding:13px 28px; background:transparent; border:1px solid #444; border-radius:10px; color:#aaa; font-size:.9rem; cursor:pointer; letter-spacing:2px; text-transform:uppercase; transition:all .2s; }
+    .btn-menu:hover { border-color:#888; color:#fff; }
   </style>
 </head>
 <body>
 
+<!-- LOADING -->
+<div id="screen-loading" class="screen active">
+  <div class="loading-logo">LOGO ZEICHNER</div>
+  <div class="loading-bar-wrap"><div class="loading-bar" id="loading-bar"></div></div>
+  <div class="loading-text" id="loading-text">Logos werden geladen…</div>
+</div>
+
 <!-- START -->
-<div id="screen-start" class="screen active">
+<div id="screen-start" class="screen">
   <div class="start-logo-row" id="start-logo-row"></div>
   <div class="game-title">Logo Zeichner</div>
   <div class="game-subtitle">Erkenne &amp; zeichne bekannte Logos</div>
@@ -186,7 +180,7 @@
 
 <!-- MEMORIZE -->
 <div id="screen-memorize" class="screen">
-  <div class="level-badge" id="mem-level-badge">Level 1 / 16</div>
+  <div class="level-badge" id="mem-level-badge">Level 1 / 20</div>
   <div class="memorize-heading">Präge dir das Logo ein!</div>
   <div class="memorize-card">
     <canvas id="ref-canvas" width="260" height="260"></canvas>
@@ -206,14 +200,14 @@
 <!-- DRAW -->
 <div id="screen-draw" class="screen">
   <div class="draw-header">
-    <div class="draw-level-badge" id="draw-level-badge">Level 1 / 16</div>
+    <div class="draw-level-badge" id="draw-level-badge">Level 1 / 20</div>
     <div class="draw-heading">Zeichne das Logo!</div>
   </div>
   <canvas id="draw-canvas"></canvas>
   <div class="draw-controls">
     <div class="palette-row" id="palette-row"></div>
     <div class="tools-row">
-      <span style="font-size:0.7rem;color:#888;margin-right:2px">Größe:</span>
+      <span style="font-size:.7rem;color:#888;margin-right:2px">Größe:</span>
       <button class="size-btn" id="sz-s" onclick="setSize(4)">S</button>
       <button class="size-btn active" id="sz-m" onclick="setSize(10)">M</button>
       <button class="size-btn" id="sz-l" onclick="setSize(20)">L</button>
@@ -234,7 +228,7 @@
       <canvas id="result-ref-canvas" class="result-canvas-el" width="150" height="150"></canvas>
     </div>
     <div style="display:flex;flex-direction:column;justify-content:center;align-items:center">
-      <div style="font-size:1.8rem;color:#555">vs</div>
+      <div style="font-size:1.8rem;color:#444">vs</div>
     </div>
     <div class="result-canvas-wrap">
       <div class="result-canvas-label">Dein Bild</div>
@@ -243,7 +237,7 @@
   </div>
   <div class="score-display" id="score-display">0%</div>
   <div class="score-message" id="score-message"></div>
-  <div class="stars-row" id="stars-row">
+  <div class="stars-row">
     <div class="star" id="s1">★</div><div class="star" id="s2">★</div>
     <div class="star" id="s3">★</div><div class="star" id="s4">★</div>
     <div class="star" id="s5">★</div>
@@ -253,7 +247,7 @@
 
 <!-- GAME OVER -->
 <div id="screen-gameover" class="screen">
-  <div class="gameover-title">🎉 Alle Levels geschafft!</div>
+  <div class="gameover-title">🎉 Alle Logos geschafft!</div>
   <div class="gameover-sub">Gesamtergebnis</div>
   <div class="final-score-big" id="final-score-big">0</div>
   <div class="final-score-label">PUNKTE GESAMT</div>
@@ -265,705 +259,117 @@
 </div>
 
 <script>
-// ── STATE ──────────────────────────────────────────────────
-const state = { level: 0, scores: [], opts: { time: 10, ghost: 0, brush: 10 }, countdownId: null };
-
-// ── HELPER ────────────────────────────────────────────────
-function rr(ctx, x, y, w, h, r) {
-  ctx.beginPath();
-  ctx.moveTo(x + r, y);
-  ctx.lineTo(x + w - r, y); ctx.quadraticCurveTo(x + w, y, x + w, y + r);
-  ctx.lineTo(x + w, y + h - r); ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
-  ctx.lineTo(x + r, y + h); ctx.quadraticCurveTo(x, y + h, x, y + h - r);
-  ctx.lineTo(x, y + r); ctx.quadraticCurveTo(x, y, x + r, y);
-  ctx.closePath();
-}
-
-// ── LOGO DRAW FUNCTIONS ───────────────────────────────────
-
-function drawNike(ctx, w, h) {
-  ctx.save();
-  // Classic Nike Swoosh – tapering curved shape
-  ctx.fillStyle = '#111111';
-  ctx.beginPath();
-  ctx.moveTo(w * 0.05, h * 0.62);
-  // Upper edge: flows right and up steeply then tapers to a sharp tip
-  ctx.bezierCurveTo(w * 0.14, h * 0.42, w * 0.34, h * 0.20, w * 0.92, h * 0.33);
-  ctx.bezierCurveTo(w * 0.97, h * 0.34, w * 0.98, h * 0.37, w * 0.94, h * 0.40);
-  // Lower edge: thick at the left, thins to nothing at the right
-  ctx.bezierCurveTo(w * 0.70, h * 0.50, w * 0.38, h * 0.58, w * 0.18, h * 0.72);
-  ctx.bezierCurveTo(w * 0.12, h * 0.76, w * 0.05, h * 0.72, w * 0.05, h * 0.62);
-  ctx.closePath();
-  ctx.fill();
-  ctx.restore();
-}
-
-function drawMcDonalds(ctx, w, h) {
-  ctx.save();
-  // Two golden arches forming the M
-  ctx.strokeStyle = '#FFC72C';
-  ctx.lineWidth = w * 0.145;
-  ctx.lineCap = 'butt';
-
-  // Left arch
-  ctx.beginPath();
-  ctx.ellipse(w * 0.295, h * 0.80, w * 0.175, h * 0.55, 0, Math.PI, 0, true);
-  ctx.stroke();
-
-  // Right arch
-  ctx.beginPath();
-  ctx.ellipse(w * 0.705, h * 0.80, w * 0.175, h * 0.55, 0, Math.PI, 0, true);
-  ctx.stroke();
-  ctx.restore();
-}
-
-function drawMercedes(ctx, w, h) {
-  ctx.save();
-  const cx = w / 2, cy = h / 2, R = Math.min(w, h) * 0.44;
-  // Outer circle
-  ctx.strokeStyle = '#1a1a1a';
-  ctx.lineWidth = w * 0.032;
-  ctx.beginPath(); ctx.arc(cx, cy, R, 0, Math.PI * 2); ctx.stroke();
-  // Three-pointed star
-  ctx.fillStyle = '#1a1a1a';
-  for (let i = 0; i < 3; i++) {
-    const a = (i / 3) * Math.PI * 2 - Math.PI / 2;
-    const tip = { x: cx + R * 0.96 * Math.cos(a), y: cy + R * 0.96 * Math.sin(a) };
-    const lA = a - 0.20, rA = a + 0.20;
-    const sr = R * 0.18;
-    ctx.beginPath();
-    ctx.moveTo(cx + sr * Math.cos(lA), cy + sr * Math.sin(lA));
-    ctx.lineTo(tip.x, tip.y);
-    ctx.lineTo(cx + sr * Math.cos(rA), cy + sr * Math.sin(rA));
-    ctx.lineTo(cx, cy);
-    ctx.closePath(); ctx.fill();
-  }
-  // Center disc
-  ctx.beginPath(); ctx.arc(cx, cy, R * 0.14, 0, Math.PI * 2); ctx.fill();
-  ctx.restore();
-}
-
-function drawApple(ctx, w, h) {
-  ctx.save();
-  ctx.fillStyle = '#555555';
-
-  // Leaf (top right of stem)
-  ctx.beginPath();
-  ctx.moveTo(w * 0.50, h * 0.20);
-  ctx.bezierCurveTo(w * 0.52, h * 0.08, w * 0.68, h * 0.06, w * 0.70, h * 0.14);
-  ctx.bezierCurveTo(w * 0.62, h * 0.10, w * 0.52, h * 0.16, w * 0.50, h * 0.20);
-  ctx.fill();
-
-  // Apple body – two-lobe shape with indent at top
-  ctx.beginPath();
-  // Start at center-top (stem base), go left
-  ctx.moveTo(w * 0.48, h * 0.25);
-  ctx.bezierCurveTo(w * 0.42, h * 0.24, w * 0.22, h * 0.22, w * 0.14, h * 0.36);
-  // Left side down
-  ctx.bezierCurveTo(w * 0.08, h * 0.50, w * 0.10, h * 0.68, w * 0.18, h * 0.78);
-  // Bottom left
-  ctx.bezierCurveTo(w * 0.26, h * 0.90, w * 0.38, h * 0.92, w * 0.46, h * 0.88);
-  // Bottom center indent
-  ctx.bezierCurveTo(w * 0.48, h * 0.90, w * 0.52, h * 0.90, w * 0.54, h * 0.88);
-  // Bottom right
-  ctx.bezierCurveTo(w * 0.62, h * 0.92, w * 0.74, h * 0.90, w * 0.82, h * 0.78);
-  // Right side up
-  ctx.bezierCurveTo(w * 0.90, h * 0.68, w * 0.92, h * 0.50, w * 0.86, h * 0.36);
-  // Top right – bite area (concave inward)
-  ctx.bezierCurveTo(w * 0.80, h * 0.26, w * 0.70, h * 0.24, w * 0.66, h * 0.28);
-  ctx.bezierCurveTo(w * 0.60, h * 0.32, w * 0.56, h * 0.26, w * 0.52, h * 0.25);
-  ctx.closePath();
-  ctx.fill();
-
-  // Bite taken out (white circle overlapping top-right)
-  ctx.fillStyle = '#ffffff';
-  ctx.beginPath();
-  ctx.arc(w * 0.74, h * 0.34, w * 0.16, 0, Math.PI * 2);
-  ctx.fill();
-
-  ctx.restore();
-}
-
-function drawAdidas(ctx, w, h) {
-  ctx.save();
-  ctx.fillStyle = '#000000';
-  // Three diagonal parallel stripes (left-leaning)
-  const stripeW = w * 0.14;
-  const gap = w * 0.085;
-  const startX = w * 0.12;
-  const slopeH = h * 0.62; // how far up each stripe goes
-  for (let i = 0; i < 3; i++) {
-    const x = startX + i * (stripeW + gap);
-    const topY = h * 0.82 - slopeH;
-    ctx.beginPath();
-    ctx.moveTo(x, h * 0.82);
-    ctx.lineTo(x + stripeW, h * 0.82);
-    ctx.lineTo(x + stripeW + slopeH * 0.45, topY);
-    ctx.lineTo(x + slopeH * 0.45, topY);
-    ctx.closePath();
-    ctx.fill();
-  }
-  // Bottom bar
-  ctx.fillRect(w * 0.10, h * 0.84, w * 0.80, h * 0.055);
-  ctx.restore();
-}
-
-function drawYouTube(ctx, w, h) {
-  ctx.save();
-  // Red rounded rectangle
-  ctx.fillStyle = '#FF0000';
-  rr(ctx, w * 0.06, h * 0.24, w * 0.88, h * 0.52, w * 0.10);
-  ctx.fill();
-  // White play triangle
-  ctx.fillStyle = '#FFFFFF';
-  const tx = w * 0.36, ty = h * 0.30, tw = w * 0.34, th = h * 0.40;
-  ctx.beginPath();
-  ctx.moveTo(tx, ty);
-  ctx.lineTo(tx, ty + th);
-  ctx.lineTo(tx + tw, ty + th / 2);
-  ctx.closePath();
-  ctx.fill();
-  ctx.restore();
-}
-
-function drawGoogle(ctx, w, h) {
-  ctx.save();
-  const cx = w / 2, cy = h / 2;
-  const R = w * 0.40, ri = w * 0.22;
-  const lw = R - ri;
-
-  // Colored arc sections (donut slices)
-  const slices = [
-    { s: -0.13 * Math.PI, e: 0.50 * Math.PI, c: '#4285F4' }, // Blue top+right
-    { s:  0.50 * Math.PI, e: 0.85 * Math.PI, c: '#FBBC05' }, // Yellow bottom-right
-    { s:  0.85 * Math.PI, e: 1.22 * Math.PI, c: '#EA4335' }, // Red bottom
-    { s:  1.22 * Math.PI, e: 1.63 * Math.PI, c: '#34A853' }, // Green left
-    { s:  1.63 * Math.PI, e: 1.87 * Math.PI, c: '#4285F4' }, // Blue top-left
-  ];
-  slices.forEach(({ s, e, c }) => {
-    ctx.beginPath();
-    ctx.arc(cx, cy, R, s, e);
-    ctx.arc(cx, cy, ri, e, s, true);
-    ctx.closePath();
-    ctx.fillStyle = c;
-    ctx.fill();
-  });
-
-  // Blue horizontal arm (right half, middle height)
-  const armTop = cy - lw / 2;
-  const armH = lw;
-  // Clip to right half only (cx to cx+R)
-  ctx.fillStyle = '#4285F4';
-  ctx.fillRect(cx, armTop, R + w * 0.04, armH);
-
-  // Cover inner circle to restore donut hole
-  ctx.fillStyle = '#ffffff';
-  ctx.beginPath();
-  ctx.arc(cx, cy, ri, 0, Math.PI * 2);
-  ctx.fill();
-
-  // Re-draw arm but clip so it doesn't go into center hole
-  // (arm from ri to R on the right)
-  ctx.fillStyle = '#4285F4';
-  ctx.fillRect(cx, armTop, R + w * 0.02, armH);
-
-  ctx.restore();
-}
-
-function drawAmazon(ctx, w, h) {
-  ctx.save();
-  // "amazon" wordmark style text
-  ctx.fillStyle = '#232F3E';
-  ctx.font = `bold ${w * 0.18}px Arial, sans-serif`;
-  ctx.textAlign = 'center';
-  ctx.textBaseline = 'middle';
-  ctx.fillText('amazon', w * 0.50, h * 0.42);
-
-  // Orange smile/arrow beneath
-  ctx.strokeStyle = '#FF9900';
-  ctx.lineWidth = w * 0.045;
-  ctx.lineCap = 'round';
-  ctx.beginPath();
-  // Arrow from under 'a' to just past 'n', with slight downward arc
-  ctx.moveTo(w * 0.14, h * 0.60);
-  ctx.bezierCurveTo(w * 0.30, h * 0.70, w * 0.65, h * 0.70, w * 0.82, h * 0.60);
-  ctx.stroke();
-
-  // Arrowhead pointing slightly right-down
-  ctx.fillStyle = '#FF9900';
-  ctx.beginPath();
-  ctx.moveTo(w * 0.82, h * 0.60);
-  ctx.lineTo(w * 0.76, h * 0.56);
-  ctx.lineTo(w * 0.76, h * 0.64);
-  ctx.closePath();
-  ctx.fill();
-  ctx.restore();
-}
-
-function drawNetflix(ctx, w, h) {
-  ctx.save();
-  // Netflix N – three parallelogram shapes
-  // Left vertical bar
-  ctx.fillStyle = '#E50914';
-  ctx.beginPath();
-  ctx.moveTo(w * 0.18, h * 0.10);
-  ctx.lineTo(w * 0.36, h * 0.10);
-  ctx.lineTo(w * 0.36, h * 0.90);
-  ctx.lineTo(w * 0.18, h * 0.90);
-  ctx.closePath();
-  ctx.fill();
-
-  // Right vertical bar
-  ctx.beginPath();
-  ctx.moveTo(w * 0.64, h * 0.10);
-  ctx.lineTo(w * 0.82, h * 0.10);
-  ctx.lineTo(w * 0.82, h * 0.90);
-  ctx.lineTo(w * 0.64, h * 0.90);
-  ctx.closePath();
-  ctx.fill();
-
-  // Diagonal slash (from top-right of left bar to bottom-left of right bar)
-  // Dark red underneath to create depth effect
-  ctx.fillStyle = '#B20710';
-  ctx.beginPath();
-  ctx.moveTo(w * 0.32, h * 0.10);
-  ctx.lineTo(w * 0.68, h * 0.90);
-  ctx.lineTo(w * 0.64, h * 0.90);
-  ctx.lineTo(w * 0.28, h * 0.10);
-  ctx.closePath();
-  ctx.fill();
-
-  // Red slash (same as bars)
-  ctx.fillStyle = '#E50914';
-  ctx.beginPath();
-  ctx.moveTo(w * 0.36, h * 0.10);
-  ctx.lineTo(w * 0.68, h * 0.90);
-  ctx.lineTo(w * 0.64, h * 0.90);
-  ctx.lineTo(w * 0.32, h * 0.10);
-  ctx.closePath();
-  ctx.fill();
-  ctx.restore();
-}
-
-function drawSpotify(ctx, w, h) {
-  ctx.save();
-  const cx = w / 2, cy = h / 2, R = Math.min(w, h) * 0.44;
-  // Green circle
-  ctx.fillStyle = '#1DB954';
-  ctx.beginPath(); ctx.arc(cx, cy, R, 0, Math.PI * 2); ctx.fill();
-
-  // Three white sound-wave arcs (concentric, top-tilted)
-  ctx.strokeStyle = '#FFFFFF';
-  ctx.lineCap = 'round';
-  const radii = [R * 0.32, R * 0.55, R * 0.75];
-  const lws = [R * 0.085, R * 0.085, R * 0.085];
-  radii.forEach((r2, i) => {
-    ctx.lineWidth = lws[i];
-    ctx.beginPath();
-    // Arc from bottom-left to top-right, tilted ~-25°
-    ctx.arc(cx - R * 0.18, cy + R * 0.12, r2, -Math.PI * 0.85, -Math.PI * 0.15);
-    ctx.stroke();
-  });
-  ctx.restore();
-}
-
-function drawBMW(ctx, w, h) {
-  ctx.save();
-  const cx = w / 2, cy = h / 2, R = Math.min(w, h) * 0.44;
-  const ri = R * 0.72;
-
-  // Quadrant fill
-  const quads = [
-    { s: -Math.PI * 0.5, e: 0, c: '#FFFFFF' },         // Top-right: white
-    { s: 0,              e: Math.PI * 0.5, c: '#1C6BC2' }, // Bottom-right: blue
-    { s: Math.PI * 0.5, e: Math.PI, c: '#FFFFFF' },    // Bottom-left: white
-    { s: Math.PI,        e: Math.PI * 1.5, c: '#1C6BC2' }, // Top-left: blue
-  ];
-  quads.forEach(({ s, e, c }) => {
-    ctx.beginPath();
-    ctx.moveTo(cx, cy);
-    ctx.arc(cx, cy, ri, s, e);
-    ctx.closePath();
-    ctx.fillStyle = c;
-    ctx.fill();
-  });
-
-  // Thin white cross lines
-  ctx.strokeStyle = '#ffffff';
-  ctx.lineWidth = w * 0.022;
-  ctx.beginPath(); ctx.moveTo(cx, cy - ri); ctx.lineTo(cx, cy + ri); ctx.stroke();
-  ctx.beginPath(); ctx.moveTo(cx - ri, cy); ctx.lineTo(cx + ri, cy); ctx.stroke();
-
-  // Black outer ring
-  ctx.strokeStyle = '#111111';
-  ctx.lineWidth = w * 0.10;
-  ctx.beginPath(); ctx.arc(cx, cy, (R + ri) / 2, 0, Math.PI * 2); ctx.stroke();
-
-  // Inner ring divider
-  ctx.strokeStyle = '#111111';
-  ctx.lineWidth = w * 0.028;
-  ctx.beginPath(); ctx.arc(cx, cy, ri, 0, Math.PI * 2); ctx.stroke();
-
-  ctx.restore();
-}
-
-function drawTarget(ctx, w, h) {
-  ctx.save();
-  const cx = w / 2, cy = h / 2;
-  [[0.44, '#CC0000'], [0.30, '#FFFFFF'], [0.15, '#CC0000']].forEach(([r, c]) => {
-    ctx.fillStyle = c;
-    ctx.beginPath(); ctx.arc(cx, cy, w * r, 0, Math.PI * 2); ctx.fill();
-  });
-  ctx.restore();
-}
-
-function drawTwitterX(ctx, w, h) {
-  ctx.save();
-  ctx.fillStyle = '#000000';
-  ctx.strokeStyle = '#000000';
-  // X shape – two bold diagonal lines crossing
-  const lw = w * 0.14;
-  ctx.lineWidth = lw;
-  ctx.lineCap = 'round';
-  ctx.beginPath();
-  ctx.moveTo(w * 0.12, h * 0.10);
-  ctx.lineTo(w * 0.88, h * 0.90);
-  ctx.stroke();
-  ctx.beginPath();
-  ctx.moveTo(w * 0.88, h * 0.10);
-  ctx.lineTo(w * 0.12, h * 0.90);
-  ctx.stroke();
-  ctx.restore();
-}
-
-function drawFacebook(ctx, w, h) {
-  ctx.save();
-  // Blue background square
-  ctx.fillStyle = '#1877F2';
-  rr(ctx, w * 0.10, h * 0.05, w * 0.80, h * 0.90, w * 0.10);
-  ctx.fill();
-
-  // White "f" letterform
-  ctx.fillStyle = '#FFFFFF';
-  const fX = w * 0.46, fTop = h * 0.12, fBot = h * 0.90;
-  const fW = w * 0.16, fSer = w * 0.22;
-  // Vertical bar of f
-  ctx.fillRect(fX, fTop + h * 0.12, fW, fBot - fTop - h * 0.20);
-  // Top arc of f (filled semicircle to simulate curve)
-  ctx.fillStyle = '#1877F2';
-  ctx.beginPath();
-  ctx.arc(fX + fW / 2, fTop + h * 0.24, fW * 0.6, 0, Math.PI);
-  ctx.fill();
-  // Re-draw actual top curve of f in white
-  ctx.fillStyle = '#FFFFFF';
-  ctx.beginPath();
-  ctx.arc(fX + fW * 0.5 + w * 0.04, fTop + h * 0.24, fW * 0.9, Math.PI * 0.6, 0);
-  ctx.lineTo(fX + fW + w * 0.04 + fW * 0.9, fTop + h * 0.24);
-  ctx.arc(fX + fW * 0.5 + w * 0.04, fTop + h * 0.24, fW * 0.9 - fW * 0.4, 0, Math.PI * 0.6, true);
-  ctx.closePath();
-  ctx.fill();
-  // Crossbar of f
-  ctx.fillStyle = '#FFFFFF';
-  ctx.fillRect(w * 0.32, h * 0.52, w * 0.38, h * 0.075);
-  // White bar
-  ctx.fillRect(fX, fTop + h * 0.12, fW, fBot - fTop - h * 0.20);
-
-  ctx.restore();
-}
-
-function drawFacebookSimple(ctx, w, h) {
-  ctx.save();
-  // Blue background
-  ctx.fillStyle = '#1877F2';
-  rr(ctx, w * 0.08, h * 0.05, w * 0.84, h * 0.90, w * 0.10);
-  ctx.fill();
-
-  // White "f" via text
-  ctx.fillStyle = '#FFFFFF';
-  ctx.font = `bold ${w * 0.72}px 'Georgia', serif`;
-  ctx.textAlign = 'center';
-  ctx.textBaseline = 'middle';
-  ctx.fillText('f', w * 0.54, h * 0.54);
-  ctx.restore();
-}
-
-function drawVolkswagen(ctx, w, h) {
-  ctx.save();
-  const cx = w / 2, cy = h / 2, R = Math.min(w, h) * 0.44;
-  // Outer circle (dark blue)
-  ctx.fillStyle = '#001E50';
-  ctx.beginPath(); ctx.arc(cx, cy, R, 0, Math.PI * 2); ctx.fill();
-
-  // Inner ring
-  ctx.strokeStyle = '#FFFFFF';
-  ctx.lineWidth = w * 0.022;
-  ctx.beginPath(); ctx.arc(cx, cy, R * 0.72, 0, Math.PI * 2); ctx.stroke();
-
-  // VW letters in white
-  ctx.fillStyle = '#FFFFFF';
-  const bw = w * 0.18, bh = h * 0.45, bx = cx - bw / 2, by = cy - bh / 2;
-
-  // V shape (top half)
-  ctx.lineWidth = w * 0.055;
-  ctx.strokeStyle = '#FFFFFF';
-  ctx.lineCap = 'round';
-  ctx.lineJoin = 'round';
-  // Left V stroke
-  ctx.beginPath();
-  ctx.moveTo(cx - w * 0.20, cy - h * 0.22);
-  ctx.lineTo(cx, cy + h * 0.02);
-  ctx.stroke();
-  // Right V stroke
-  ctx.beginPath();
-  ctx.moveTo(cx + w * 0.20, cy - h * 0.22);
-  ctx.lineTo(cx, cy + h * 0.02);
-  ctx.stroke();
-
-  // W shape (bottom half)
-  ctx.beginPath();
-  ctx.moveTo(cx - w * 0.26, cy + h * 0.02);
-  ctx.lineTo(cx - w * 0.10, cy + h * 0.26);
-  ctx.lineTo(cx, cy + h * 0.10);
-  ctx.lineTo(cx + w * 0.10, cy + h * 0.26);
-  ctx.lineTo(cx + w * 0.26, cy + h * 0.02);
-  ctx.stroke();
-
-  // Horizontal divider between V and W
-  ctx.lineWidth = w * 0.025;
-  ctx.beginPath();
-  ctx.moveTo(cx - w * 0.24, cy + h * 0.02);
-  ctx.lineTo(cx + w * 0.24, cy + h * 0.02);
-  ctx.stroke();
-  ctx.restore();
-}
-
-function drawMastercard(ctx, w, h) {
-  ctx.save();
-  const cy = h / 2;
-  const r = Math.min(w, h) * 0.34;
-  const leftCX = w * 0.36, rightCX = w * 0.64;
-
-  // Red left circle
-  ctx.globalAlpha = 1;
-  ctx.fillStyle = '#EB001B';
-  ctx.beginPath(); ctx.arc(leftCX, cy, r, 0, Math.PI * 2); ctx.fill();
-
-  // Orange right circle (overlapping)
-  ctx.fillStyle = '#F79E1B';
-  ctx.beginPath(); ctx.arc(rightCX, cy, r, 0, Math.PI * 2); ctx.fill();
-
-  // Overlap (blend) – orange-red gradient area in center
-  ctx.fillStyle = '#FF5F00';
-  ctx.beginPath();
-  ctx.arc(leftCX, cy, r, -Math.PI * 0.5, Math.PI * 0.5);
-  ctx.arc(rightCX, cy, r, Math.PI * 0.5, -Math.PI * 0.5, true);
-  ctx.closePath();
-  ctx.fill();
-  ctx.restore();
-}
-
-function drawPepsi(ctx, w, h) {
-  ctx.save();
-  const cx = w / 2, cy = h / 2, R = Math.min(w, h) * 0.43;
-
-  // White circle base
-  ctx.fillStyle = '#FFFFFF';
-  ctx.beginPath(); ctx.arc(cx, cy, R, 0, Math.PI * 2); ctx.fill();
-
-  // Red top half
-  ctx.fillStyle = '#E61939';
-  ctx.beginPath();
-  ctx.arc(cx, cy, R, -Math.PI, 0);
-  ctx.closePath(); ctx.fill();
-
-  // Blue bottom half
-  ctx.fillStyle = '#004B93';
-  ctx.beginPath();
-  ctx.arc(cx, cy, R, 0, Math.PI);
-  ctx.closePath(); ctx.fill();
-
-  // White wavy divider across center
-  ctx.fillStyle = '#FFFFFF';
-  ctx.beginPath();
-  ctx.moveTo(cx - R, cy);
-  ctx.bezierCurveTo(cx - R * 0.5, cy - R * 0.28, cx + R * 0.0, cy + R * 0.28, cx + R * 0.5, cy - R * 0.10);
-  ctx.bezierCurveTo(cx + R * 0.7, cy - R * 0.18, cx + R * 0.85, cy - R * 0.05, cx + R, cy);
-  ctx.lineTo(cx + R, cy + R * 0.15);
-  ctx.bezierCurveTo(cx + R * 0.85, cy + R * 0.10, cx + R * 0.7, cy - R * 0.03, cx + R * 0.5, cy + R * 0.05);
-  ctx.bezierCurveTo(cx, cy + R * 0.42, cx - R * 0.5, cy - R * 0.13, cx - R, cy + R * 0.15);
-  ctx.closePath(); ctx.fill();
-
-  // Outer ring
-  ctx.strokeStyle = '#DDDDDD';
-  ctx.lineWidth = w * 0.018;
-  ctx.beginPath(); ctx.arc(cx, cy, R, 0, Math.PI * 2); ctx.stroke();
-  ctx.restore();
-}
-
-function drawInstagram(ctx, w, h) {
-  ctx.save();
-  // Gradient background
-  const grad = ctx.createLinearGradient(0, h, w, 0);
-  grad.addColorStop(0.0, '#FFDC80');
-  grad.addColorStop(0.2, '#FCAF45');
-  grad.addColorStop(0.4, '#F77737');
-  grad.addColorStop(0.6, '#F56040');
-  grad.addColorStop(0.7, '#FD1D1D');
-  grad.addColorStop(0.9, '#C13584');
-  grad.addColorStop(1.0, '#833AB4');
-  ctx.fillStyle = grad;
-  rr(ctx, w * 0.06, h * 0.06, w * 0.88, h * 0.88, w * 0.22);
-  ctx.fill();
-
-  // White camera square outline
-  ctx.strokeStyle = '#FFFFFF';
-  ctx.lineWidth = w * 0.052;
-  ctx.lineCap = 'round';
-  rr(ctx, w * 0.18, h * 0.18, w * 0.64, h * 0.64, w * 0.14);
-  ctx.stroke();
-
-  // Lens circle
-  ctx.beginPath();
-  ctx.arc(w / 2, h / 2, w * 0.165, 0, Math.PI * 2);
-  ctx.stroke();
-
-  // Dot top-right corner
-  ctx.fillStyle = '#FFFFFF';
-  ctx.beginPath();
-  ctx.arc(w * 0.72, h * 0.28, w * 0.055, 0, Math.PI * 2);
-  ctx.fill();
-  ctx.restore();
-}
-
-function drawStarbucks(ctx, w, h) {
-  ctx.save();
-  const cx = w / 2, cy = h / 2, R = Math.min(w, h) * 0.44;
-  // Dark green circle
-  ctx.fillStyle = '#00704A';
-  ctx.beginPath(); ctx.arc(cx, cy, R, 0, Math.PI * 2); ctx.fill();
-
-  // Simplified siren silhouette (two-tailed mermaid face)
-  ctx.fillStyle = '#FFFFFF';
-  // Face
-  ctx.beginPath();
-  ctx.ellipse(cx, cy - R * 0.10, R * 0.28, R * 0.34, 0, 0, Math.PI * 2);
-  ctx.fill();
-  // Crown points (5 small triangles on top)
-  for (let i = -2; i <= 2; i++) {
-    const tx = cx + i * R * 0.14;
-    ctx.fillStyle = '#FFFFFF';
-    ctx.beginPath();
-    ctx.moveTo(tx - R * 0.06, cy - R * 0.40);
-    ctx.lineTo(tx, cy - R * 0.60);
-    ctx.lineTo(tx + R * 0.06, cy - R * 0.40);
-    ctx.closePath();
-    ctx.fill();
-  }
-  // Left tail
-  ctx.beginPath();
-  ctx.moveTo(cx - R * 0.10, cy + R * 0.22);
-  ctx.bezierCurveTo(cx - R * 0.55, cy + R * 0.30, cx - R * 0.72, cy + R * 0.60, cx - R * 0.42, cy + R * 0.72);
-  ctx.bezierCurveTo(cx - R * 0.20, cy + R * 0.80, cx - R * 0.05, cy + R * 0.60, cx, cy + R * 0.34);
-  ctx.fill();
-  // Right tail
-  ctx.beginPath();
-  ctx.moveTo(cx + R * 0.10, cy + R * 0.22);
-  ctx.bezierCurveTo(cx + R * 0.55, cy + R * 0.30, cx + R * 0.72, cy + R * 0.60, cx + R * 0.42, cy + R * 0.72);
-  ctx.bezierCurveTo(cx + R * 0.20, cy + R * 0.80, cx + R * 0.05, cy + R * 0.60, cx, cy + R * 0.34);
-  ctx.fill();
-  // Green face overlay (to separate from tails)
-  ctx.fillStyle = '#00704A';
-  ctx.beginPath();
-  ctx.ellipse(cx, cy - R * 0.10, R * 0.20, R * 0.28, 0, 0, Math.PI * 2);
-  ctx.fill();
-  // White face again
-  ctx.fillStyle = '#FFFFFF';
-  ctx.beginPath();
-  ctx.ellipse(cx, cy - R * 0.10, R * 0.18, R * 0.25, 0, 0, Math.PI * 2);
-  ctx.fill();
-  // Eyes
-  ctx.fillStyle = '#00704A';
-  ctx.beginPath(); ctx.arc(cx - R * 0.08, cy - R * 0.15, R * 0.04, 0, Math.PI * 2); ctx.fill();
-  ctx.beginPath(); ctx.arc(cx + R * 0.08, cy - R * 0.15, R * 0.04, 0, Math.PI * 2); ctx.fill();
-  ctx.restore();
-}
-
-function drawShell(ctx, w, h) {
-  ctx.save();
-  const cx = w / 2, cy = h * 0.54;
-  const R = Math.min(w, h) * 0.44;
-  const numRibs = 11;
-
-  // Draw shell ribs (fan from bottom-center)
-  for (let i = 0; i < numRibs; i++) {
-    const t = i / (numRibs - 1); // 0..1
-    const angle = Math.PI - t * Math.PI; // from right (0) to left (PI), mapped to full arc
-    const isYellow = (i % 2 === 0);
-    ctx.fillStyle = isYellow ? '#FBBC05' : '#DD1D21';
-
-    // Each rib is a sector from center
-    const startA = Math.PI - (i / (numRibs)) * Math.PI;
-    const endA = Math.PI - ((i + 1) / (numRibs)) * Math.PI;
-
-    ctx.beginPath();
-    ctx.moveTo(cx, cy + R * 0.05);
-    ctx.arc(cx, cy + R * 0.05, R * 0.95, startA, endA, true);
-    ctx.closePath();
-    ctx.fill();
-  }
-
-  // White scallop outline shape (clip the fan to scallop)
-  // Re-draw top scalloped edge in bg white
-  ctx.fillStyle = '#FFFFFF';
-  ctx.beginPath();
-  ctx.arc(cx, cy + R * 0.05, R * 0.95, Math.PI, 0);
-  ctx.lineTo(cx, cy + R * 0.05);
-  ctx.closePath();
-  // This would erase, so instead just redraw ribs clipped to scallop
-
-  // Shell outline
-  ctx.strokeStyle = '#DD1D21';
-  ctx.lineWidth = w * 0.025;
-  ctx.beginPath();
-  ctx.arc(cx, cy + R * 0.05, R * 0.95, Math.PI, 0);
-  ctx.stroke();
-
-  // Bottom cap (rounded)
-  ctx.fillStyle = '#DD1D21';
-  ctx.beginPath();
-  ctx.ellipse(cx, cy + R * 0.05, R * 0.95, R * 0.18, 0, 0, Math.PI);
-  ctx.fill();
-  ctx.restore();
-}
-
-// ── LEVELS ────────────────────────────────────────────────
-const LEVELS = [
-  { name: 'Nike',          cat: 'Sport',         draw: drawNike },
-  { name: "McDonald's",    cat: 'Fast Food',      draw: drawMcDonalds },
-  { name: 'Mercedes-Benz', cat: 'Automobil',      draw: drawMercedes },
-  { name: 'Apple',         cat: 'Technologie',    draw: drawApple },
-  { name: 'Adidas',        cat: 'Sport',          draw: drawAdidas },
-  { name: 'YouTube',       cat: 'Streaming',      draw: drawYouTube },
-  { name: 'Google',        cat: 'Technologie',    draw: drawGoogle },
-  { name: 'Amazon',        cat: 'E-Commerce',     draw: drawAmazon },
-  { name: 'Netflix',       cat: 'Streaming',      draw: drawNetflix },
-  { name: 'Spotify',       cat: 'Musik',          draw: drawSpotify },
-  { name: 'BMW',           cat: 'Automobil',      draw: drawBMW },
-  { name: 'Target',        cat: 'Einzelhandel',   draw: drawTarget },
-  { name: 'X (Twitter)',   cat: 'Social Media',   draw: drawTwitterX },
-  { name: 'Facebook',      cat: 'Social Media',   draw: drawFacebookSimple },
-  { name: 'Volkswagen',    cat: 'Automobil',      draw: drawVolkswagen },
-  { name: 'Mastercard',    cat: 'Finanzen',       draw: drawMastercard },
-  { name: 'Pepsi',         cat: 'Getränke',       draw: drawPepsi },
-  { name: 'Instagram',     cat: 'Social Media',   draw: drawInstagram },
-  { name: 'Starbucks',     cat: 'Kaffee',         draw: drawStarbucks },
-  { name: 'Shell',         cat: 'Energie',        draw: drawShell },
+// ── LOGO DEFINITIONS ──────────────────────────────────────
+// icon: SimpleIcons slug  |  color: icon fill color  |  bg: canvas background
+// pad: padding fraction (default 0.12)
+const LOGO_DEFS = [
+  { name:'Nike',          cat:'Sport',         icon:'nike',         color:'#000000', bg:'#FFFFFF' },
+  { name:"McDonald's",    cat:'Fast Food',      icon:'mcdonalds',    color:'#FFC72C', bg:'#DA291C' },
+  { name:'Mercedes-Benz', cat:'Automobil',      icon:'mercedesbenz', color:'#222222', bg:'#FFFFFF' },
+  { name:'Apple',         cat:'Technologie',    icon:'apple',        color:'#555555', bg:'#FFFFFF' },
+  { name:'Adidas',        cat:'Sport',          icon:'adidas',       color:'#000000', bg:'#FFFFFF' },
+  { name:'YouTube',       cat:'Streaming',      icon:'youtube',      color:'#FF0000', bg:'#FFFFFF' },
+  { name:'Google',        cat:'Technologie',    icon:'google',       color:'#4285F4', bg:'#FFFFFF' },
+  { name:'Amazon',        cat:'E-Commerce',     icon:'amazon',       color:'#FF9900', bg:'#FFFFFF' },
+  { name:'Netflix',       cat:'Streaming',      icon:'netflix',      color:'#E50914', bg:'#141414' },
+  { name:'Spotify',       cat:'Musik',          icon:'spotify',      color:'#1DB954', bg:'#FFFFFF' },
+  { name:'BMW',           cat:'Automobil',      icon:'bmw',          color:'#1C69D4', bg:'#FFFFFF' },
+  { name:'Target',        cat:'Einzelhandel',   icon:'target',       color:'#CC0000', bg:'#FFFFFF' },
+  { name:'X',             cat:'Social Media',   icon:'x',            color:'#000000', bg:'#FFFFFF' },
+  { name:'Facebook',      cat:'Social Media',   icon:'facebook',     color:'#1877F2', bg:'#FFFFFF' },
+  { name:'Volkswagen',    cat:'Automobil',      icon:'volkswagen',   color:'#151F6D', bg:'#FFFFFF' },
+  { name:'Mastercard',    cat:'Finanzen',       icon:'mastercard',   color:'#EB001B', bg:'#FFFFFF' },
+  { name:'Instagram',     cat:'Social Media',   icon:'instagram',    color:'#E4405F', bg:'#FFFFFF' },
+  { name:'Starbucks',     cat:'Kaffee',         icon:'starbucks',    color:'#00704A', bg:'#FFFFFF' },
+  { name:'Shell',         cat:'Energie',        icon:'shell',        color:'#DD1D21', bg:'#FFFFFF' },
+  { name:'Pepsi',         cat:'Getränke',       icon:'pepsi',        color:'#004B93', bg:'#FFFFFF' },
 ];
-const TOTAL = LEVELS.length;
 
-// ── PALETTE ───────────────────────────────────────────────
+const TOTAL = LOGO_DEFS.length;
+const loadedImgs = {}; // name → HTMLImageElement
+
+// ── LOGO LOADING ──────────────────────────────────────────
+async function loadAllLogos() {
+  const bar  = document.getElementById('loading-bar');
+  const text = document.getElementById('loading-text');
+  let done = 0;
+
+  const bump = () => {
+    done++;
+    bar.style.width  = `${(done / TOTAL) * 100}%`;
+    text.textContent = `Logos werden geladen… ${done} / ${TOTAL}`;
+  };
+
+  await Promise.all(LOGO_DEFS.map(async def => {
+    const hexColor = def.color.replace('#', '');
+    // SimpleIcons CDN: returns brand-accurate SVG in the requested color
+    const url = `https://cdn.simpleicons.org/${def.icon}/${hexColor}`;
+    try {
+      const resp = await fetch(url);
+      if (!resp.ok) throw new Error(resp.status);
+      const svgRaw = await resp.text();
+
+      // Expand viewBox by 20% padding so no clipping
+      const svgPadded = svgRaw.replace(/viewBox="([^"]+)"/, (_, vb) => {
+        const [x, y, w, h] = vb.trim().split(/\s+/).map(Number);
+        const px = w * 0.18, py = h * 0.18;
+        return `viewBox="${x - px} ${y - py} ${w + px*2} ${h + py*2}"`;
+      });
+
+      const blob    = new Blob([svgPadded], { type: 'image/svg+xml' });
+      const blobUrl = URL.createObjectURL(blob);
+
+      await new Promise(res => {
+        const img = new Image();
+        img.onload  = () => { loadedImgs[def.name] = img; URL.revokeObjectURL(blobUrl); res(); };
+        img.onerror = () => { URL.revokeObjectURL(blobUrl); res(); };
+        img.src = blobUrl;
+      });
+    } catch(e) {
+      console.warn('Logo load failed:', def.name, e);
+    }
+    bump();
+  }));
+}
+
+// ── DRAW LOGO TO CANVAS ───────────────────────────────────
+function renderLogo(ctx, w, h, def) {
+  ctx.fillStyle = def.bg || '#FFFFFF';
+  ctx.fillRect(0, 0, w, h);
+  const img = loadedImgs[def.name];
+  if (img) {
+    const pad = w * 0.10;
+    ctx.drawImage(img, pad, pad, w - pad * 2, h - pad * 2);
+  } else {
+    // Fallback text
+    ctx.fillStyle = def.color || '#333';
+    ctx.font = `bold ${w * 0.12}px sans-serif`;
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText(def.name, w / 2, h / 2);
+  }
+}
+
+// Build LEVELS from defs
+const LEVELS = LOGO_DEFS.map(def => ({
+  name: def.name,
+  cat:  def.cat,
+  draw: (ctx, w, h) => renderLogo(ctx, w, h, def),
+  def,
+}));
+
+// ── GAME STATE ────────────────────────────────────────────
+const state = {
+  level: 0,
+  scores: [],
+  opts: { time: 10, ghost: 0, brush: 10 },
+  countdownId: null,
+};
+
+// ── PALETTE / DRAWING ─────────────────────────────────────
 const PALETTE = ['#111111','#ffffff','#e63946','#457b9d','#2d6a4f','#f4a261','#9b5de5','#f9c74f','#ff6b6b','#06d6a0'];
-let drawCtx, drawCanvas, isDrawing = false, lastX = 0, lastY = 0;
+let drawCanvas, drawCtx;
+let isDrawing = false, lastX = 0, lastY = 0;
 let currentColor = '#111111', currentSize = 10, isEraser = false, history = [];
 
 function buildPalette() {
@@ -978,7 +384,7 @@ function buildPalette() {
       currentColor = c; isEraser = false;
       row.querySelectorAll('.color-swatch').forEach(s => s.classList.remove('active'));
       sw.classList.add('active');
-      document.getElementById('eraser-btn').classList.remove('active');
+      document.getElementById('eraser-btn')?.classList.remove('active');
     };
     row.appendChild(sw);
   });
@@ -995,65 +401,86 @@ function buildPalette() {
 function setSize(s) {
   currentSize = s;
   document.querySelectorAll('.size-btn').forEach(b => b.classList.remove('active'));
-  ({ 4: 'sz-s', 10: 'sz-m', 20: 'sz-l' }[s] || '') && document.getElementById({ 4: 'sz-s', 10: 'sz-m', 20: 'sz-l' }[s]).classList.add('active');
+  const id = { 4:'sz-s', 10:'sz-m', 20:'sz-l' }[s];
+  if (id) document.getElementById(id)?.classList.add('active');
 }
 
 function setupDrawCanvas() {
-  drawCanvas = document.getElementById('draw-canvas');
-  const maxW = Math.min(window.innerWidth - 32, 520);
-  const maxH = Math.min(window.innerHeight - 240, 420);
-  const sz = Math.min(maxW, maxH);
-  drawCanvas.width = sz; drawCanvas.height = sz;
+  const maxW = Math.min(window.innerWidth  - 32, 520);
+  const maxH = Math.min(window.innerHeight - 240, 430);
+  const sz   = Math.min(maxW, maxH);
+
+  // Replace canvas to wipe old listeners
+  const old = document.getElementById('draw-canvas');
+  const nc  = old.cloneNode(false);
+  old.parentNode.replaceChild(nc, old);
+  drawCanvas = nc;
+  drawCanvas.width  = sz;
+  drawCanvas.height = sz;
   drawCtx = drawCanvas.getContext('2d');
+
+  // White background
   drawCtx.fillStyle = '#ffffff';
   drawCtx.fillRect(0, 0, sz, sz);
-  if (state.opts.ghost) {
-    drawCtx.save(); drawCtx.globalAlpha = 0.08;
+
+  // Ghost (faint logo watermark)
+  if (state.opts.ghost && loadedImgs[LEVELS[state.level].name]) {
+    drawCtx.save();
+    drawCtx.globalAlpha = 0.07;
     LEVELS[state.level].draw(drawCtx, sz, sz);
     drawCtx.restore();
   }
+
   history = [drawCtx.getImageData(0, 0, sz, sz)];
 
   function getPos(e) {
-    const rect = drawCanvas.getBoundingClientRect();
-    const sx = drawCanvas.width / rect.width, sy = drawCanvas.height / rect.height;
-    return { x: ((e.clientX ?? e.pageX) - rect.left) * sx, y: ((e.clientY ?? e.pageY) - rect.top) * sy };
+    const r  = drawCanvas.getBoundingClientRect();
+    const sx = drawCanvas.width  / r.width;
+    const sy = drawCanvas.height / r.height;
+    const cx = e.clientX ?? e.pageX;
+    const cy = e.clientY ?? e.pageY;
+    return { x: (cx - r.left) * sx, y: (cy - r.top) * sy };
   }
+
   function stroke(x0, y0, x1, y1) {
-    drawCtx.lineWidth = isEraser ? currentSize * 2.5 : currentSize;
-    drawCtx.lineCap = 'round'; drawCtx.lineJoin = 'round';
+    drawCtx.lineWidth   = isEraser ? currentSize * 2.5 : currentSize;
+    drawCtx.lineCap     = 'round';
+    drawCtx.lineJoin    = 'round';
     drawCtx.strokeStyle = isEraser ? '#ffffff' : currentColor;
-    drawCtx.beginPath(); drawCtx.moveTo(x0, y0); drawCtx.lineTo(x1, y1); drawCtx.stroke();
+    drawCtx.beginPath();
+    drawCtx.moveTo(x0, y0);
+    drawCtx.lineTo(x1, y1);
+    drawCtx.stroke();
   }
+
   function saveH() {
-    if (history.length >= 25) history.shift();
+    if (history.length >= 30) history.shift();
     history.push(drawCtx.getImageData(0, 0, drawCanvas.width, drawCanvas.height));
   }
 
-  // Remove old listeners by cloning
-  const nc = drawCanvas.cloneNode(true);
-  drawCanvas.parentNode.replaceChild(nc, drawCanvas);
-  drawCanvas = nc;
-  drawCtx = drawCanvas.getContext('2d');
-  drawCtx.putImageData(history[history.length - 1], 0, 0);
-
   drawCanvas.addEventListener('mousedown', e => {
-    isDrawing = true; const p = getPos(e); lastX = p.x; lastY = p.y;
-    stroke(lastX, lastY, lastX + 0.1, lastY);
+    isDrawing = true;
+    const p = getPos(e); lastX = p.x; lastY = p.y;
+    stroke(lastX, lastY, lastX + .1, lastY);
   });
   drawCanvas.addEventListener('mousemove', e => {
-    if (!isDrawing) return; const p = getPos(e);
-    stroke(lastX, lastY, p.x, p.y); lastX = p.x; lastY = p.y;
+    if (!isDrawing) return;
+    const p = getPos(e);
+    stroke(lastX, lastY, p.x, p.y);
+    lastX = p.x; lastY = p.y;
   });
-  drawCanvas.addEventListener('mouseup', () => { isDrawing = false; saveH(); });
+  drawCanvas.addEventListener('mouseup',    () => { isDrawing = false; saveH(); });
   drawCanvas.addEventListener('mouseleave', () => { isDrawing = false; saveH(); });
   drawCanvas.addEventListener('touchstart', e => {
-    e.preventDefault(); isDrawing = true; const p = getPos(e.touches[0]); lastX = p.x; lastY = p.y;
-    stroke(lastX, lastY, lastX + 0.1, lastY);
+    e.preventDefault(); isDrawing = true;
+    const p = getPos(e.touches[0]); lastX = p.x; lastY = p.y;
+    stroke(lastX, lastY, lastX + .1, lastY);
   }, { passive: false });
   drawCanvas.addEventListener('touchmove', e => {
-    e.preventDefault(); if (!isDrawing) return; const p = getPos(e.touches[0]);
-    stroke(lastX, lastY, p.x, p.y); lastX = p.x; lastY = p.y;
+    e.preventDefault(); if (!isDrawing) return;
+    const p = getPos(e.touches[0]);
+    stroke(lastX, lastY, p.x, p.y);
+    lastX = p.x; lastY = p.y;
   }, { passive: false });
   drawCanvas.addEventListener('touchend', () => { isDrawing = false; saveH(); });
 }
@@ -1073,25 +500,47 @@ function clearCanvas() {
 // ── SCORE ─────────────────────────────────────────────────
 function calculateScore() {
   const S = 200;
-  function make(drawFn) {
-    const c = document.createElement('canvas'); c.width = S; c.height = S;
-    const x = c.getContext('2d'); x.fillStyle = '#fff'; x.fillRect(0, 0, S, S);
-    if (drawFn) drawFn(x, S, S); else x.drawImage(drawCanvas, 0, 0, S, S);
-    return x.getImageData(0, 0, S, S).data;
+  const lvl = LEVELS[state.level];
+
+  // Reference on white (always white bg for consistent comparison)
+  const refC = document.createElement('canvas');
+  refC.width = S; refC.height = S;
+  const rx = refC.getContext('2d');
+  rx.fillStyle = '#ffffff';
+  rx.fillRect(0, 0, S, S);
+  const img = loadedImgs[lvl.name];
+  if (img) {
+    const pad = S * 0.10;
+    rx.drawImage(img, pad, pad, S - pad * 2, S - pad * 2);
   }
-  const ref = make(LEVELS[state.level].draw), usr = make(null);
-  const notWhite = (d, i) => !(d[i] > 225 && d[i+1] > 225 && d[i+2] > 225);
+
+  // User canvas scaled to S×S
+  const usrC = document.createElement('canvas');
+  usrC.width = S; usrC.height = S;
+  const ux = usrC.getContext('2d');
+  ux.fillStyle = '#ffffff';
+  ux.fillRect(0, 0, S, S);
+  if (drawCanvas) ux.drawImage(drawCanvas, 0, 0, S, S);
+
+  const refD = rx.getImageData(0, 0, S, S).data;
+  const usrD = ux.getImageData(0, 0, S, S).data;
+
+  // "Drawn" = pixel is not white (any color)
+  const notWhite = (d, i) => !(d[i] > 230 && d[i+1] > 230 && d[i+2] > 230);
   let rp = 0, up = 0, inter = 0;
-  for (let i = 0; i < ref.length; i += 4) {
-    const r = notWhite(ref, i), u = notWhite(usr, i);
-    if (r) rp++; if (u) up++; if (r && u) inter++;
+  for (let i = 0; i < refD.length; i += 4) {
+    const r = notWhite(refD, i), u = notWhite(usrD, i);
+    if (r) rp++;
+    if (u) up++;
+    if (r && u) inter++;
   }
-  const prec = up > 0 ? inter / up : 0, rec = rp > 0 ? inter / rp : 0;
-  const f1 = (prec + rec) > 0 ? 2 * prec * rec / (prec + rec) : 0;
-  return Math.min(100, Math.round(f1 * 155));
+  const prec = up  > 0 ? inter / up  : 0;
+  const rec  = rp  > 0 ? inter / rp  : 0;
+  const f1   = (prec + rec) > 0 ? 2 * prec * rec / (prec + rec) : 0;
+  return Math.min(100, Math.round(f1 * 160)); // slight boost so game stays fun
 }
 
-// ── FLOW ──────────────────────────────────────────────────
+// ── SCREEN & FLOW ─────────────────────────────────────────
 function showScreen(id) {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
@@ -1104,19 +553,23 @@ function setOption(key, val) {
 }
 
 function startGame() {
-  state.level = 0; state.scores = [];
+  state.level  = 0;
+  state.scores = [];
   showMemorize();
 }
 
 function showMemorize() {
-  document.getElementById('mem-level-badge').textContent = `Level ${state.level + 1} / ${TOTAL}`;
   const lvl = LEVELS[state.level];
-  document.getElementById('mem-brand-name').textContent = lvl.name;
-  document.getElementById('mem-brand-cat').textContent = lvl.cat;
+  document.getElementById('mem-level-badge').textContent = `Level ${state.level + 1} / ${TOTAL}`;
+  document.getElementById('mem-brand-name').textContent  = lvl.name;
+  document.getElementById('mem-brand-cat').textContent   = lvl.cat;
+
   const rc = document.getElementById('ref-canvas');
   const rx = rc.getContext('2d');
-  rx.fillStyle = '#fff'; rx.fillRect(0, 0, rc.width, rc.height);
+  rx.fillStyle = '#ffffff';
+  rx.fillRect(0, 0, rc.width, rc.height);
   lvl.draw(rx, rc.width, rc.height);
+
   showScreen('screen-memorize');
   startCountdown(state.opts.time);
 }
@@ -1124,18 +577,17 @@ function showMemorize() {
 function startCountdown(secs) {
   clearInterval(state.countdownId);
   let t = secs;
-  const circ = 2 * Math.PI * 30; // r=30 → circumference≈188.5
-  const fg = document.getElementById('countdown-fg');
+  const C   = 2 * Math.PI * 30; // circumference (r=30)
+  const fg  = document.getElementById('countdown-fg');
   const num = document.getElementById('countdown-num');
-  fg.style.transition = 'none';
+  fg.style.transition     = 'none';
   fg.style.strokeDashoffset = 0;
 
   function tick() {
-    const pct = t / secs;
-    fg.style.transition = 'stroke-dashoffset 1s linear';
-    fg.style.strokeDashoffset = circ * (1 - pct);
-    fg.style.stroke = t <= 3 ? '#ffa500' : '#ff4f6d';
-    num.textContent = t;
+    fg.style.transition     = 'stroke-dashoffset 1s linear';
+    fg.style.strokeDashoffset = C * (1 - t / secs);
+    fg.style.stroke         = t <= 3 ? '#ffa500' : '#ff4f6d';
+    num.textContent         = t;
     if (t <= 0) { clearInterval(state.countdownId); showDrawScreen(); return; }
     t--;
   }
@@ -1146,11 +598,14 @@ function startCountdown(secs) {
 function showDrawScreen() {
   document.getElementById('draw-level-badge').textContent = `Level ${state.level + 1} / ${TOTAL}`;
   currentColor = '#111111'; isEraser = false; currentSize = state.opts.brush;
-  document.querySelectorAll('.size-btn').forEach(b => b.classList.remove('active'));
-  const sMap = { 4: 'sz-s', 10: 'sz-m', 20: 'sz-l' };
-  if (sMap[currentSize]) document.getElementById(sMap[currentSize]).classList.add('active');
+  // Reset palette
   document.querySelectorAll('.color-swatch').forEach((s, i) => s.classList.toggle('active', i === 0));
-  const eb = document.getElementById('eraser-btn'); if (eb) eb.classList.remove('active');
+  document.getElementById('eraser-btn')?.classList.remove('active');
+  // Reset size buttons
+  document.querySelectorAll('.size-btn').forEach(b => b.classList.remove('active'));
+  const szId = { 4:'sz-s', 10:'sz-m', 20:'sz-l' }[currentSize];
+  if (szId) document.getElementById(szId)?.classList.add('active');
+
   showScreen('screen-draw');
   setupDrawCanvas();
 }
@@ -1159,17 +614,21 @@ function submitDrawing() {
   const score = calculateScore();
   state.scores.push(score);
 
-  document.getElementById('result-title').textContent = `${LEVELS[state.level].name}`;
-  const rr2 = document.getElementById('result-ref-canvas');
-  const rrx = rr2.getContext('2d');
-  rrx.fillStyle = '#fff'; rrx.fillRect(0, 0, rr2.width, rr2.height);
-  LEVELS[state.level].draw(rrx, rr2.width, rr2.height);
+  document.getElementById('result-title').textContent = LEVELS[state.level].name;
 
+  // Reference mini canvas
+  const rr = document.getElementById('result-ref-canvas');
+  const rx = rr.getContext('2d');
+  rx.fillStyle = '#ffffff'; rx.fillRect(0, 0, rr.width, rr.height);
+  LEVELS[state.level].draw(rx, rr.width, rr.height);
+
+  // User mini canvas
   const ru = document.getElementById('result-user-canvas');
-  const rux = ru.getContext('2d');
-  rux.fillStyle = '#fff'; rux.fillRect(0, 0, ru.width, ru.height);
-  rux.drawImage(drawCanvas, 0, 0, ru.width, ru.height);
+  const ux = ru.getContext('2d');
+  ux.fillStyle = '#ffffff'; ux.fillRect(0, 0, ru.width, ru.height);
+  if (drawCanvas) ux.drawImage(drawCanvas, 0, 0, ru.width, ru.height);
 
+  // Score color
   const sd = document.getElementById('score-display');
   sd.textContent = score + '%';
   sd.style.color = score >= 65 ? '#2ecc71' : score >= 35 ? '#ffa500' : '#ff4f6d';
@@ -1187,11 +646,10 @@ function submitDrawing() {
   for (let i = 1; i <= 5; i++) {
     const el = document.getElementById('s' + i);
     el.classList.remove('lit');
-    setTimeout(() => { if (i <= stars) el.classList.add('lit'); }, i * 130);
+    setTimeout(() => { if (i <= stars) el.classList.add('lit'); }, i * 120);
   }
 
-  const isLast = state.level >= TOTAL - 1;
-  document.getElementById('btn-next').textContent = isLast ? '🏆 Abschluss' : 'Weiter →';
+  document.getElementById('btn-next').textContent = state.level >= TOTAL - 1 ? '🏆 Abschluss' : 'Weiter →';
   showScreen('screen-result');
 }
 
@@ -1202,12 +660,11 @@ function nextLevel() {
 }
 
 function showGameOver() {
-  const total = state.scores.reduce((a, b) => a + b, 0);
-  document.getElementById('final-score-big').textContent = total + ' Pkt';
+  document.getElementById('final-score-big').textContent = state.scores.reduce((a, b) => a + b, 0) + ' Pkt';
   const grid = document.getElementById('level-scores-grid');
   grid.innerHTML = '';
   state.scores.forEach((s, i) => {
-    const col = s >= 65 ? '#2ecc71' : s >= 35 ? '#ffa500' : '#ff4f6d';
+    const col  = s >= 65 ? '#2ecc71' : s >= 35 ? '#ffa500' : '#ff4f6d';
     const card = document.createElement('div');
     card.className = 'level-score-card';
     card.innerHTML = `<div class="lsc-name">${LEVELS[i].name}</div><div class="lsc-score" style="color:${col}">${s}%</div>`;
@@ -1221,21 +678,23 @@ function exitGame() {
   document.body.innerHTML = `<div style="display:flex;flex-direction:column;justify-content:center;align-items:center;height:100vh;background:#0d0d1a;color:#fff;text-align:center;gap:20px"><div style="font-size:3rem">👋</div><div style="font-size:2rem;font-weight:700">Auf Wiedersehen!</div><div style="color:#888">Du kannst den Tab nun schließen.</div></div>`;
 }
 
-// ── INIT ──────────────────────────────────────────────────
-function initStartLogos() {
+function buildStartLogos() {
   const row = document.getElementById('start-logo-row');
-  [0, 6, 9, 15, 17].forEach(idx => {
+  [0, 5, 9, 12, 17].forEach(idx => {
     const c = document.createElement('canvas');
-    c.width = 54; c.height = 54;
-    const ctx = c.getContext('2d');
-    ctx.fillStyle = '#fff'; ctx.fillRect(0, 0, 54, 54);
-    LEVELS[idx].draw(ctx, 54, 54);
+    c.width = 52; c.height = 52;
+    LEVELS[idx].draw(c.getContext('2d'), 52, 52);
     row.appendChild(c);
   });
 }
 
+// ── BOOTSTRAP ─────────────────────────────────────────────
 buildPalette();
-initStartLogos();
+
+loadAllLogos().then(() => {
+  buildStartLogos();
+  showScreen('screen-start');
+});
 </script>
 </body>
 </html>
